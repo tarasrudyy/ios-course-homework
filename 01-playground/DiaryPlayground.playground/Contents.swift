@@ -70,10 +70,10 @@ struct DatePeriods {
     static let oneWeekAgo   = DatePeriods.now.dateByAddingTimeInterval(-DatePeriods.oneWeek)
 }
 
-var emptyWeekRecord = DiaryRecord(createdDate: DatePeriods.threeDaysAgo)
-var yesterdayRecord = DiaryRecord(createdDate: DatePeriods.yesterday, text: "Вчив Swift.")
-var nowRecord       = DiaryRecord(name: "Зараз", text: "П’ю каву, пташки співають, бо вже весна!", tags: ["весна", "сонечко", "кава"])
-var weekAgoRecord   = DiaryRecord(createdDate: DatePeriods.oneWeekAgo, name: "Вечеря")
+let emptyWeekRecord = DiaryRecord(createdDate: DatePeriods.threeDaysAgo)
+let yesterdayRecord = DiaryRecord(createdDate: DatePeriods.yesterday, text: "Вчив Swift.")
+let nowRecord       = DiaryRecord(name: "Зараз", text: "П’ю каву, пташки співають, бо вже весна!", tags: ["весна", "сонечко", "кава"])
+let weekAgoRecord   = DiaryRecord(createdDate: DatePeriods.oneWeekAgo, name: "Вечеря")
 
 
 // додаткове завдання
