@@ -30,10 +30,10 @@ class DiaryRecord: CustomStringConvertible {
         let createdWeek = calendar.component(NSCalendarUnit.WeekOfYear, fromDate: self.createdDate)
         
         var description:String
-        if calendar.isDateInToday(self.createdDate)  {
+        if calendar.isDateInToday(createdDate)  {
             dateFormatter.dateFormat = "HH:mm"
             description = "\(dateFormatter.stringFromDate(createdDate))"
-        } else if calendar.isDateInYesterday(self.createdDate) {
+        } else if calendar.isDateInYesterday(createdDate) {
             description = "Вчора"
         } else if createdWeek == thisWeek  {
             dateFormatter.dateFormat = "EEEE"
@@ -46,8 +46,8 @@ class DiaryRecord: CustomStringConvertible {
         if let name = self.name {
             description = "\(description)\n\(name)"
         }
-        if self.tags.count > 0 {
-            description = "\(description)\n[\(self.tags.joinWithSeparator("] ["))]"
+        if tags.count > 0 {
+            description = "\(description)\n[\(tags.joinWithSeparator("] ["))]"
         }
         if let text = self.text {
             description = "\(description)\n\(text)"
@@ -61,7 +61,7 @@ class DiaryRecord: CustomStringConvertible {
 struct DatePeriods {
     static let oneHour:Double = 3600
     static let oneDay:Double  = 24 * DatePeriods.oneHour
-    static let oneWeek:Double = 7 * DatePeriods.oneDay
+    static let oneWeek:Double =  7 * DatePeriods.oneDay
     
     static let now          = NSDate()
     static let oneHourAgo   = DatePeriods.now.dateByAddingTimeInterval(-DatePeriods.oneHour)
