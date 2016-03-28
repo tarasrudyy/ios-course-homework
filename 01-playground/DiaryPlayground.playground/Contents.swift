@@ -59,9 +59,9 @@ class DiaryRecord: CustomStringConvertible {
 }
 
 struct DatePeriods {
-    static let oneHour:Double = 3600
-    static let oneDay:Double  = 24 * DatePeriods.oneHour
-    static let oneWeek:Double =  7 * DatePeriods.oneDay
+    private static let oneHour:Double = 3600
+    private static let oneDay:Double  = 24 * DatePeriods.oneHour
+    private static let oneWeek:Double =  7 * DatePeriods.oneDay
     
     static let now          = NSDate()
     static let oneHourAgo   = DatePeriods.now.dateByAddingTimeInterval(-DatePeriods.oneHour)
