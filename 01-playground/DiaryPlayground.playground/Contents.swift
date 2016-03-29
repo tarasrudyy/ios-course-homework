@@ -25,9 +25,9 @@ class DiaryRecord: CustomStringConvertible {
         let dateFormatter = NSDateFormatter()
         dateFormatter.locale = NSLocale(localeIdentifier: "uk_UK")
         
-        let calendar = NSCalendar.currentCalendar()
+        let calendar = dateFormatter.calendar
         let thisWeek = calendar.component(NSCalendarUnit.WeekOfYear, fromDate: NSDate())
-        let createdWeek = calendar.component(NSCalendarUnit.WeekOfYear, fromDate: self.createdDate)
+        let createdWeek = calendar.component(NSCalendarUnit.WeekOfYear, fromDate: createdDate)
         
         var description = [String]()
         if calendar.isDateInToday(createdDate)  {
