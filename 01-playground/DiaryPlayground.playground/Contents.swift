@@ -26,8 +26,8 @@ class DiaryRecord: CustomStringConvertible {
         dateFormatter.locale = NSLocale(localeIdentifier: "uk_UK")
         
         let calendar = dateFormatter.calendar
-        let thisWeek = calendar.component(NSCalendarUnit.WeekOfYear, fromDate: NSDate())
-        let createdWeek = calendar.component(NSCalendarUnit.WeekOfYear, fromDate: createdDate)
+        let thisWeek = calendar.components([NSCalendarUnit.WeekOfYear, NSCalendarUnit.Year], fromDate: NSDate())
+        let createdWeek = calendar.components([NSCalendarUnit.WeekOfYear, NSCalendarUnit.Year], fromDate: createdDate)
         
         var description = [String]()
         if calendar.isDateInToday(createdDate) {
@@ -35,7 +35,7 @@ class DiaryRecord: CustomStringConvertible {
             description.append(dateFormatter.stringFromDate(createdDate))
         } else if calendar.isDateInYesterday(createdDate) {
             description.append("Вчора")
-        } else if createdWeek == thisWeek  {
+        } else if createdWeek == thisWeek {
             dateFormatter.dateFormat = "EEEE"
             description.append(dateFormatter.stringFromDate(createdDate).capitalizedString)
         } else {
@@ -59,26 +59,25 @@ class DiaryRecord: CustomStringConvertible {
 }
 
 struct DatePeriods {
-    private static let oneHour = 3600.0
-    private static let oneDay  = 24 * oneHour
-    private static let oneWeek =  7 * oneDay
+    private static let calendar = NSCalendar.currentCalendar()
     
     static let now          = NSDate()
-    static let oneHourAgo   = now.dateByAddingTimeInterval(-DatePeriods.oneHour)
-    static let yesterday    = now.dateByAddingTimeInterval(-DatePeriods.oneDay)
-    static let threeDaysAgo = now.dateByAddingTimeInterval(-3 * DatePeriods.oneDay)
-    static let oneWeekAgo   = now.dateByAddingTimeInterval(-DatePeriods.oneWeek)
+    static let oneHourAgo   = calendar.dateByAddingUnit(NSCalendarUnit.Hour, value: -1, toDate: now, options: NSCalendarOptions.MatchFirst)
+    static let yesterday    = calendar.dateByAddingUnit(NSCalendarUnit.Day, value: -1, toDate: now, options: NSCalendarOptions.MatchFirst)
+    static let threeDaysAgo = calendar.dateByAddingUnit(NSCalendarUnit.Day, value: -3, toDate: now, options: NSCalendarOptions.MatchFirst)
+    static let oneWeekAgo   = calendar.dateByAddingUnit(NSCalendarUnit.WeekOfYear, value: -1, toDate: now, options: NSCalendarOptions.MatchFirst)
+    static let oneYearAgo   = calendar.dateByAddingUnit(NSCalendarUnit.Year, value: -1, toDate: now, options: NSCalendarOptions.MatchFirst)
 }
 
 let emptyWeekRecord = DiaryRecord(createdDate: DatePeriods.threeDaysAgo)
 let yesterdayRecord = DiaryRecord(createdDate: DatePeriods.yesterday, text: "Вчив Swift.")
 let nowRecord       = DiaryRecord(name: "Зараз", text: "П’ю каву, пташки співають, бо вже весна!", tags: ["весна", "сонечко", "кава"])
 let weekAgoRecord   = DiaryRecord(createdDate: DatePeriods.oneWeekAgo, name: "Вечеря")
-
+let yearAgoRecord   = DiaryRecord(createdDate: DatePeriods.oneYearAgo, name: "Рік тому", text: "Вже весна!", tags: ["весна", "сонечко", "пташки"])
 
 // додаткове завдання
 
-let records = [weekAgoRecord, nowRecord, emptyWeekRecord, yesterdayRecord]
+let records = [yearAgoRecord, weekAgoRecord, nowRecord, emptyWeekRecord, yesterdayRecord]
 
 for record in records.sort({ (firstRecord: DiaryRecord, secondRecord: DiaryRecord) -> Bool in
     return firstRecord.createdDate.compare(secondRecord.createdDate) == NSComparisonResult.OrderedAscending
