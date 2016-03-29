@@ -30,7 +30,7 @@ class DiaryRecord: CustomStringConvertible {
         let createdWeek = calendar.component(NSCalendarUnit.WeekOfYear, fromDate: createdDate)
         
         var description = [String]()
-        if calendar.isDateInToday(createdDate)  {
+        if calendar.isDateInToday(createdDate) {
             dateFormatter.dateFormat = "HH:mm"
             description.append(dateFormatter.stringFromDate(createdDate))
         } else if calendar.isDateInYesterday(createdDate) {
