@@ -28,7 +28,7 @@ class DiaryRecord: CustomStringConvertible {
         let calendar = NSCalendar.currentCalendar()
         let thisWeek = calendar.component(NSCalendarUnit.WeekOfYear, fromDate: NSDate())
         let createdWeek = calendar.component(NSCalendarUnit.WeekOfYear, fromDate: self.createdDate)
-                
+        
         var description = [String]()
         if calendar.isDateInToday(createdDate)  {
             dateFormatter.dateFormat = "HH:mm"
@@ -60,14 +60,14 @@ class DiaryRecord: CustomStringConvertible {
 
 struct DatePeriods {
     private static let oneHour = 3600.0
-    private static let oneDay  = 24 * DatePeriods.oneHour
-    private static let oneWeek =  7 * DatePeriods.oneDay
+    private static let oneDay  = 24 * oneHour
+    private static let oneWeek =  7 * oneDay
     
     static let now          = NSDate()
-    static let oneHourAgo   = DatePeriods.now.dateByAddingTimeInterval(-DatePeriods.oneHour)
-    static let yesterday    = DatePeriods.now.dateByAddingTimeInterval(-DatePeriods.oneDay)
-    static let threeDaysAgo = DatePeriods.now.dateByAddingTimeInterval(-3 * DatePeriods.oneDay)
-    static let oneWeekAgo   = DatePeriods.now.dateByAddingTimeInterval(-DatePeriods.oneWeek)
+    static let oneHourAgo   = now.dateByAddingTimeInterval(-DatePeriods.oneHour)
+    static let yesterday    = now.dateByAddingTimeInterval(-DatePeriods.oneDay)
+    static let threeDaysAgo = now.dateByAddingTimeInterval(-3 * DatePeriods.oneDay)
+    static let oneWeekAgo   = now.dateByAddingTimeInterval(-DatePeriods.oneWeek)
 }
 
 let emptyWeekRecord = DiaryRecord(createdDate: DatePeriods.threeDaysAgo)
