@@ -28,40 +28,40 @@ class DiaryRecord: CustomStringConvertible {
         let calendar = NSCalendar.currentCalendar()
         let thisWeek = calendar.component(NSCalendarUnit.WeekOfYear, fromDate: NSDate())
         let createdWeek = calendar.component(NSCalendarUnit.WeekOfYear, fromDate: self.createdDate)
-        
-        var description:String
+                
+        var description = [String]()
         if calendar.isDateInToday(createdDate)  {
             dateFormatter.dateFormat = "HH:mm"
-            description = "\(dateFormatter.stringFromDate(createdDate))"
+            description.append(dateFormatter.stringFromDate(createdDate))
         } else if calendar.isDateInYesterday(createdDate) {
-            description = "Вчора"
+            description.append("Вчора")
         } else if createdWeek == thisWeek  {
             dateFormatter.dateFormat = "EEEE"
-            description = "\(dateFormatter.stringFromDate(createdDate).capitalizedString)"
+            description.append(dateFormatter.stringFromDate(createdDate).capitalizedString)
         } else {
             dateFormatter.dateFormat = "dd MMMM YYYY"
-            description = "\(dateFormatter.stringFromDate(createdDate))"
+            description.append(dateFormatter.stringFromDate(createdDate))
         }
         
         if let name = self.name {
-            description = "\(description)\n\(name)"
-        }
-        if tags.count > 0 {
-            description = "\(description)\n[\(tags.joinWithSeparator("] ["))]"
+            description.append(name)
         }
         if let text = self.text {
-            description = "\(description)\n\(text)"
+            description.append(text)
         }
-        description = "\(description)\n"
+        if tags.count > 0 {
+            description.append("[\(tags.joinWithSeparator("] ["))]")
+        }
+        description.append("")
         
-        return description
+        return description.joinWithSeparator("\n")
     }
 }
 
 struct DatePeriods {
-    private static let oneHour:Double = 3600
-    private static let oneDay:Double  = 24 * DatePeriods.oneHour
-    private static let oneWeek:Double =  7 * DatePeriods.oneDay
+    private static let oneHour = 3600.0
+    private static let oneDay  = 24 * DatePeriods.oneHour
+    private static let oneWeek =  7 * DatePeriods.oneDay
     
     static let now          = NSDate()
     static let oneHourAgo   = DatePeriods.now.dateByAddingTimeInterval(-DatePeriods.oneHour)
