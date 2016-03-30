@@ -64,12 +64,12 @@ struct DatePeriods {
     static let now          = NSDate()
     static let oneHourAgo   = calendar.dateByAddingUnit(NSCalendarUnit.Hour, value: -1, toDate: now, options: NSCalendarOptions.MatchFirst)
     static let yesterday    = calendar.dateByAddingUnit(NSCalendarUnit.Day, value: -1, toDate: now, options: NSCalendarOptions.MatchFirst)
-    static let threeDaysAgo = calendar.dateByAddingUnit(NSCalendarUnit.Day, value: -3, toDate: now, options: NSCalendarOptions.MatchFirst)
+    static let twoDaysAgo   = calendar.dateByAddingUnit(NSCalendarUnit.Day, value: -2, toDate: now, options: NSCalendarOptions.MatchFirst)
     static let oneWeekAgo   = calendar.dateByAddingUnit(NSCalendarUnit.WeekOfYear, value: -1, toDate: now, options: NSCalendarOptions.MatchFirst)
     static let oneYearAgo   = calendar.dateByAddingUnit(NSCalendarUnit.Year, value: -1, toDate: now, options: NSCalendarOptions.MatchFirst)
 }
 
-let emptyWeekRecord = DiaryRecord(createdDate: DatePeriods.threeDaysAgo)
+let emptyWeekRecord = DiaryRecord(createdDate: DatePeriods.twoDaysAgo)
 let yesterdayRecord = DiaryRecord(createdDate: DatePeriods.yesterday, text: "Вчив Swift.")
 let nowRecord       = DiaryRecord(name: "Зараз", text: "П’ю каву, пташки співають, бо вже весна!", tags: ["весна", "сонечко", "кава"])
 let weekAgoRecord   = DiaryRecord(createdDate: DatePeriods.oneWeekAgo, name: "Вечеря")
