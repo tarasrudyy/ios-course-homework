@@ -19,6 +19,12 @@ struct DatePeriods {
     static let oneYearAgo   = calendar.dateByAddingUnit(NSCalendarUnit.Year, value: -1, toDate: now, options: NSCalendarOptions.MatchFirst)
 }
 
+enum Weather: String {
+    case Sunny  = "sunny_sm"
+    case Cloudy = "cloudy_sm"
+    case Rainy  = "rain_sm"
+}
+
 class DiaryRecord: CustomStringConvertible {
     
     static let dateFormatter = NSDateFormatter()
@@ -27,13 +33,36 @@ class DiaryRecord: CustomStringConvertible {
     var name: String?
     var text: String?
     var tags: [String]
+    var wheather: Weather
     
     var description: String { return fullDescription() }
-    var dateString: String { return DiaryRecord.dateFormatter.stringFromDate(createdDate) }
+    var dateString: String {
+//        let calendar = DiaryRecord.dateFormatter.calendar
+//        let thisWeek = calendar.components([NSCalendarUnit.WeekOfYear, NSCalendarUnit.Year], fromDate: NSDate())
+//        let createdWeek = calendar.components([NSCalendarUnit.WeekOfYear, NSCalendarUnit.Year], fromDate: createdDate)
+//        
+//        if calendar.isDateInToday(createdDate) {
+//            DiaryRecord.dateFormatter.dateFormat = "HH:mm"
+//        } else if calendar.isDateInYesterday(createdDate) {
+//            return "Yesterday"
+//        } else if createdWeek == thisWeek {
+//            DiaryRecord.dateFormatter.dateFormat = "EEEE"
+//        } else {
+//            DiaryRecord.dateFormatter.dateFormat = "dd MMMM YYYY"
+//        }
+        
+        return DiaryRecord.dateFormatter.stringFromDate(createdDate)
+    }
+    var dateStringFull: String {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
+        dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
+        return DiaryRecord.dateFormatter.stringFromDate(createdDate)
+    }
     
     // MARK: Initialization
     
-    init(createdDate: NSDate? = nil, name: String? = nil, text: String? = nil, tags: [String] = [String]()) {
+    init(createdDate: NSDate? = nil, name: String? = nil, text: String? = nil, tags: [String] = [String](), weather: Weather? = nil) {
         if let createdDateUnwrapped = createdDate {
             self.createdDate = createdDateUnwrapped
         } else {
@@ -42,31 +71,22 @@ class DiaryRecord: CustomStringConvertible {
         self.name = name
         self.text = text
         self.tags = tags
+        if let weatherUnwrapped = weather {
+            self.wheather = weatherUnwrapped
+        } else {
+            self.wheather = Weather.Sunny
+        }
         
         // set up dateFormatter for test
         DiaryRecord.dateFormatter.doesRelativeDateFormatting = true
-        DiaryRecord.dateFormatter.dateStyle = NSDateFormatterStyle.MediumStyle
+        DiaryRecord.dateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
+        DiaryRecord.dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
     }
     
     func fullDescription() -> String {
-        let calendar = DiaryRecord.dateFormatter.calendar
-        let thisWeek = calendar.components([NSCalendarUnit.WeekOfYear, NSCalendarUnit.Year], fromDate: NSDate())
-        let createdWeek = calendar.components([NSCalendarUnit.WeekOfYear, NSCalendarUnit.Year], fromDate: createdDate)
-        
         var description = [String]()
-        description.append(DiaryRecord.dateFormatter.stringFromDate(createdDate))
-        if calendar.isDateInToday(createdDate) {
-            DiaryRecord.dateFormatter.dateFormat = "HH:mm"
-            description.append(DiaryRecord.dateFormatter.stringFromDate(createdDate))
-        } else if calendar.isDateInYesterday(createdDate) {
-            description.append("Вчора")
-        } else if createdWeek == thisWeek {
-            DiaryRecord.dateFormatter.dateFormat = "EEEE"
-            description.append(DiaryRecord.dateFormatter.stringFromDate(createdDate).capitalizedString)
-        } else {
-            DiaryRecord.dateFormatter.dateFormat = "dd MMMM YYYY"
-            description.append(DiaryRecord.dateFormatter.stringFromDate(createdDate))
-        }
+        
+        description.append(self.dateString)
         
         if let name = self.name {
             description.append(name)

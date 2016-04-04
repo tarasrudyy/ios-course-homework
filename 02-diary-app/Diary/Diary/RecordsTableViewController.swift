@@ -22,14 +22,17 @@ class RecordsTableViewController: UITableViewController {
     }
     
     func loadSampleRecords() {
-        let emptyWeekRecord = DiaryRecord(createdDate: DatePeriods.twoDaysAgo)
-        let yesterdayRecord = DiaryRecord(createdDate: DatePeriods.yesterday, text: "Вчив Swift.")
+        let emptyWeekRecord = DiaryRecord(createdDate: DatePeriods.twoDaysAgo, weather: Weather.Cloudy)
+        let yesterdayRecord = DiaryRecord(createdDate: DatePeriods.yesterday, text: "Вчив Swift.", weather: Weather.Rainy)
         let nowRecord       = DiaryRecord(name: "Зараз", text: "П’ю каву, пташки співають, бо вже весна!", tags: ["весна", "сонечко", "кава"])
-        let weekAgoRecord   = DiaryRecord(createdDate: DatePeriods.oneWeekAgo, name: "Вечеря")
+        let weekAgoRecord   = DiaryRecord(createdDate: DatePeriods.oneWeekAgo, name: "Вечеря", weather: Weather.Rainy)
         let yearAgoRecord   = DiaryRecord(createdDate: DatePeriods.oneYearAgo, name: "Рік тому", text: "Вже весна!", tags: ["весна", "сонечко", "пташки"])
         
         records += [yearAgoRecord, weekAgoRecord, nowRecord, emptyWeekRecord, yesterdayRecord]
-
+        
+        records = records.sort({ (firstRecord: DiaryRecord, secondRecord: DiaryRecord) -> Bool in
+            return firstRecord.createdDate.compare(secondRecord.createdDate) == NSComparisonResult.OrderedDescending
+        })
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,6 +57,7 @@ class RecordsTableViewController: UITableViewController {
         let record = records[indexPath.row]
         cell.dateLabel?.text = record.dateString
         cell.nameLabel?.text = record.name
+        cell.weatherImageView?.image = UIImage(named: record.wheather.rawValue)
 
         return cell
     }
@@ -93,14 +97,27 @@ class RecordsTableViewController: UITableViewController {
     }
     */
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "ShowRecord" {
+            let recordViewController = segue.destinationViewController as? RecordViewController
+            if let selectedRecordCell = sender as? RecordTableViewCell {
+                let indexPath = tableView.indexPathForCell(selectedRecordCell)!
+                let selectedRecord = records[indexPath.row]
+                recordViewController?.record = selectedRecord
+            }
+        } else if segue.identifier == "AddRecord" {
+            print("Adding new record.")
+        }
     }
-    */
-
+    
+    @IBAction func unwindToRecordsList(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.sourceViewController as? RecordViewController, record = sourceViewController.record {
+            let newIndexPath = NSIndexPath(forRow: records.count, inSection: 0)
+            records.append(record)
+            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
+        }
+    }
 }

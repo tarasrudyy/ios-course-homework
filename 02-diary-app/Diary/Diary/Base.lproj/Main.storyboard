@@ -145,6 +145,7 @@
                                     <outlet property="dateLabel" destination="Owq-Ks-6Un" id="Qsu-WR-MbK"/>
                                     <outlet property="nameLabel" destination="uGa-To-S6C" id="Npw-VF-92l"/>
                                     <outlet property="weatherImageView" destination="0ik-7o-9iq" id="9bJ-ha-YuQ"/>
+                                    <segue destination="1iz-Hc-eKo" kind="show" identifier="ShowRecord" id="dPL-oP-CLJ"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -156,12 +157,12 @@
                     <navigationItem key="navigationItem" title="Diary" id="QPg-ZX-ucB">
                         <barButtonItem key="leftBarButtonItem" image="settings" style="done" id="UAQ-SQ-XMa" userLabel="Settings">
                             <connections>
-                                <segue destination="YHg-10-GQB" kind="presentation" id="6Zu-5M-Ny2"/>
+                                <segue destination="YHg-10-GQB" kind="presentation" identifier="PresentSettings" id="6Zu-5M-Ny2"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="add" id="OqC-eK-slc" userLabel="Add">
                             <connections>
-                                <segue destination="1iz-Hc-eKo" kind="show" id="2aR-JW-PdF"/>
+                                <segue destination="1iz-Hc-eKo" kind="show" identifier="AddRecord" id="oeI-bk-XtK"/>
                             </connections>
                         </barButtonItem>
                         <connections>
@@ -177,7 +178,7 @@
         <!--Record-->
         <scene sceneID="Hvb-W2-mEA">
             <objects>
-                <viewController id="1iz-Hc-eKo" userLabel="Record" sceneMemberID="viewController">
+                <viewController id="1iz-Hc-eKo" userLabel="Record" customClass="RecordViewController" customModule="Diary" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="FvA-Oy-zDN"/>
                         <viewControllerLayoutGuide type="bottom" id="FNn-3D-bIF"/>
@@ -212,11 +213,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="xov-HD-buE"/>
+                    <navigationItem key="navigationItem" title="New Record" id="xov-HD-buE"/>
+                    <connections>
+                        <outlet property="entryTextField" destination="5e3-em-S3i" id="DaK-wE-gpf"/>
+                        <outlet property="titleTextField" destination="PKn-LY-b8H" id="czy-Yh-VPt"/>
+                        <outlet property="weatherSegmentedControl" destination="CXF-fv-0lV" id="OyD-Le-BYK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FNr-Ki-rhM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1524" y="729"/>
+            <point key="canvasLocation" x="1524" y="755"/>
         </scene>
         <!--Main Navigation Controller-->
         <scene sceneID="kcm-Vk-xQe">
@@ -241,4 +247,7 @@
         <image name="settings" width="38" height="39"/>
         <image name="sunny_sm" width="25" height="25"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="oeI-bk-XtK"/>
+    </inferredMetricsTieBreakers>
 </document>
