@@ -23,20 +23,22 @@ class RecordViewController: UIViewController {
         if let record = record {
             titleTextField?.text = record.name
             entryTextField?.text = record.text
-            navigationItem.title = record.dateString
+            navigationItem.title = record.date
             weatherSegmentedControl?.selectedSegmentIndex = record.wheather.rawValue
         } else {
             record = DiaryRecord()
-            navigationItem.title = record?.dateStringFull
+            title = record?.fullDate
         }
     }
-
+        
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
         record?.name = titleTextField?.text
         record?.text = entryTextField?.text
         
@@ -55,11 +57,14 @@ class RecordViewController: UIViewController {
         }
     }
 
-    // MARK: - Navigation
     /*
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
 
-    }
-    */
 }

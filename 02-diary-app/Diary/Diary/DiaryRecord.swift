@@ -12,11 +12,11 @@ struct DatePeriods {
     private static let calendar = NSCalendar.currentCalendar()
     
     static let now          = NSDate()
-    static let oneHourAgo   = calendar.dateByAddingUnit(NSCalendarUnit.Hour, value: -1, toDate: now, options: NSCalendarOptions.MatchFirst)
-    static let yesterday    = calendar.dateByAddingUnit(NSCalendarUnit.Day, value: -1, toDate: now, options: NSCalendarOptions.MatchFirst)
-    static let twoDaysAgo   = calendar.dateByAddingUnit(NSCalendarUnit.Day, value: -2, toDate: now, options: NSCalendarOptions.MatchFirst)
-    static let oneWeekAgo   = calendar.dateByAddingUnit(NSCalendarUnit.WeekOfYear, value: -1, toDate: now, options: NSCalendarOptions.MatchFirst)
-    static let oneYearAgo   = calendar.dateByAddingUnit(NSCalendarUnit.Year, value: -1, toDate: now, options: NSCalendarOptions.MatchFirst)
+    static let oneHourAgo   = calendar.dateByAddingUnit(.Hour, value: -1, toDate: now, options: .MatchFirst)
+    static let yesterday    = calendar.dateByAddingUnit(.Day, value: -1, toDate: now, options: .MatchFirst)
+    static let twoDaysAgo   = calendar.dateByAddingUnit(.Day, value: -2, toDate: now, options: .MatchFirst)
+    static let oneWeekAgo   = calendar.dateByAddingUnit(.WeekOfYear, value: -1, toDate: now, options: .MatchFirst)
+    static let oneYearAgo   = calendar.dateByAddingUnit(.Year, value: -1, toDate: now, options: .MatchFirst)
 }
 
 enum Weather: Int {
@@ -33,11 +33,28 @@ class DiaryRecord: CustomStringConvertible {
     var tags: [String]
     var wheather: Weather
     
-    var description: String { return fullDescription() }
-    var dateString: String {
+    var description: String {
+        var description = [String]()
+        description.append(self.date)
+        
+        if let name = self.name {
+            description.append(name)
+        }
+        if let text = self.text {
+            description.append(text)
+        }
+        if tags.count > 0 {
+            description.append("[\(tags.joinWithSeparator("] ["))]")
+        }
+        description.append("")
+        
+        return description.joinWithSeparator("\n")
+    }
+    
+    var date: String {
         let calendar = DiaryRecord.dateFormatter.calendar
-        let thisWeek = calendar.components([NSCalendarUnit.WeekOfYear, NSCalendarUnit.Year], fromDate: NSDate())
-        let createdWeek = calendar.components([NSCalendarUnit.WeekOfYear, NSCalendarUnit.Year], fromDate: createdDate)
+        let thisWeek = calendar.components([.WeekOfYear, .Year], fromDate: NSDate())
+        let createdWeek = calendar.components([.WeekOfYear, .Year], fromDate: createdDate)
         
         if calendar.isDateInToday(createdDate) {
             DiaryRecord.dateFormatter.dateStyle = .NoStyle
@@ -54,7 +71,7 @@ class DiaryRecord: CustomStringConvertible {
         
         return DiaryRecord.dateFormatter.stringFromDate(createdDate)
     }
-    var dateStringFull: String {
+    var fullDate: String {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateStyle = .LongStyle
         dateFormatter.timeStyle = .ShortStyle
@@ -82,24 +99,5 @@ class DiaryRecord: CustomStringConvertible {
         DiaryRecord.dateFormatter.doesRelativeDateFormatting = true
         DiaryRecord.dateFormatter.dateStyle = .LongStyle
         DiaryRecord.dateFormatter.timeStyle = .ShortStyle
-    }
-    
-    func fullDescription() -> String {
-        var description = [String]()
-        
-        description.append(self.dateString)
-        
-        if let name = self.name {
-            description.append(name)
-        }
-        if let text = self.text {
-            description.append(text)
-        }
-        if tags.count > 0 {
-            description.append("[\(tags.joinWithSeparator("] ["))]")
-        }
-        description.append("")
-        
-        return description.joinWithSeparator("\n")
     }
 }

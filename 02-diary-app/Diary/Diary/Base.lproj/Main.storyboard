@@ -24,7 +24,7 @@
         <!--Settings-->
         <scene sceneID="QVT-DS-Kuo">
             <objects>
-                <tableViewController id="Mzf-Za-7VI" userLabel="Settings" sceneMemberID="viewController">
+                <tableViewController id="Mzf-Za-7VI" userLabel="Settings" customClass="SettingsViewController" customModule="Diary" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="rta-oO-eGC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -97,7 +97,11 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Settings" id="CJE-P7-hlJ">
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="U15-FG-OJ2"/>
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="U15-FG-OJ2">
+                            <connections>
+                                <action selector="onDoneAction:" destination="Mzf-Za-7VI" id="3Rz-oA-pQS"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>

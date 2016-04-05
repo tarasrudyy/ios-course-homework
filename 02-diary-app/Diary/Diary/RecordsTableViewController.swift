@@ -21,6 +21,16 @@ class RecordsTableViewController: UITableViewController {
         loadSampleRecords()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        title = "Diary"
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        title = ""
+    }
+    
     func loadSampleRecords() {
         let emptyWeekRecord = DiaryRecord(createdDate: DatePeriods.twoDaysAgo, weather: Weather.Cloudy)
         let yesterdayRecord = DiaryRecord(createdDate: DatePeriods.yesterday, text: "Вчив Swift.", weather: Weather.Rainy)
@@ -55,7 +65,7 @@ class RecordsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! RecordTableViewCell
         
         let record = records[indexPath.row]
-        cell.dateLabel?.text = record.dateString
+        cell.dateLabel?.text = record.date
         cell.nameLabel?.text = record.name
         let images = ["sunny_sm", "rain_sm", "cloudy_sm"]
         cell.weatherImageView?.image = UIImage(named: images[record.wheather.rawValue])
