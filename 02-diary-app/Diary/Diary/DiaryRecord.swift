@@ -52,18 +52,11 @@ class DiaryRecord: CustomStringConvertible {
     }
     
     var date: String {
-        let calendar = DiaryRecord.dateFormatter.calendar
-        let thisWeek = calendar.components([.WeekOfYear, .Year], fromDate: NSDate())
-        let createdWeek = calendar.components([.WeekOfYear, .Year], fromDate: createdDate)
-        
-        if calendar.isDateInToday(createdDate) {
-            DiaryRecord.dateFormatter.dateStyle = .NoStyle
-            DiaryRecord.dateFormatter.timeStyle = .ShortStyle
-        } else if calendar.isDateInYesterday(createdDate) {
+        let settings = NSUserDefaults.standardUserDefaults()
+        DiaryRecord.dateFormatter.doesRelativeDateFormatting = settings.boolForKey("naturalLanguageSupport")
+        if settings.boolForKey("dateAndTime") {
             DiaryRecord.dateFormatter.dateStyle = .LongStyle
-            DiaryRecord.dateFormatter.timeStyle = .NoStyle
-        } else if createdWeek == thisWeek {
-            DiaryRecord.dateFormatter.dateFormat = "EEEE"
+            DiaryRecord.dateFormatter.timeStyle = .ShortStyle
         } else {
             DiaryRecord.dateFormatter.dateStyle = .LongStyle
             DiaryRecord.dateFormatter.timeStyle = .NoStyle
@@ -71,6 +64,7 @@ class DiaryRecord: CustomStringConvertible {
         
         return DiaryRecord.dateFormatter.stringFromDate(createdDate)
     }
+    
     var fullDate: String {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateStyle = .LongStyle
@@ -94,10 +88,5 @@ class DiaryRecord: CustomStringConvertible {
         } else {
             self.wheather = Weather.Sunny
         }
-        
-        // set up dateFormatter for test
-        DiaryRecord.dateFormatter.doesRelativeDateFormatting = true
-        DiaryRecord.dateFormatter.dateStyle = .LongStyle
-        DiaryRecord.dateFormatter.timeStyle = .ShortStyle
     }
 }

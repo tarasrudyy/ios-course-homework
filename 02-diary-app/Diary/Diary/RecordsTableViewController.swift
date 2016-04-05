@@ -24,6 +24,7 @@ class RecordsTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         title = "Diary"
+        tableView.reloadData()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -44,7 +45,7 @@ class RecordsTableViewController: UITableViewController {
             return firstRecord.createdDate.compare(secondRecord.createdDate) == NSComparisonResult.OrderedDescending
         })
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -72,7 +73,7 @@ class RecordsTableViewController: UITableViewController {
 
         return cell
     }
-
+    
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
