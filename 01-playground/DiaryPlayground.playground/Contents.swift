@@ -9,6 +9,30 @@ class DiaryRecord: CustomStringConvertible {
     var tags: [String]
     
     var description: String { return fullDescription() }
+    var date: String {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.locale = NSLocale(localeIdentifier: "uk_UK")
+        dateFormatter.doesRelativeDateFormatting = true
+        
+        let calendar = dateFormatter.calendar
+        let thisWeek = calendar.components([.WeekOfYear, .Year], fromDate: NSDate())
+        let createdWeek = calendar.components([.WeekOfYear, .Year], fromDate: createdDate)
+        
+        if calendar.isDateInToday(createdDate) {
+            dateFormatter.dateStyle = .NoStyle
+            dateFormatter.timeStyle = .ShortStyle
+        } else if calendar.isDateInYesterday(createdDate) {
+            dateFormatter.dateStyle = .LongStyle
+            dateFormatter.timeStyle = .NoStyle
+        } else if createdWeek == thisWeek {
+            dateFormatter.dateFormat = "EEEE"
+        } else {
+            dateFormatter.dateStyle = .LongStyle
+            dateFormatter.timeStyle = .NoStyle
+        }
+        
+        return dateFormatter.stringFromDate(createdDate)
+    }
     
     init(createdDate: NSDate? = nil, name: String? = nil, text: String? = nil, tags: [String] = [String]()) {
         if let createdDateUnwrapped = createdDate {
@@ -22,26 +46,8 @@ class DiaryRecord: CustomStringConvertible {
     }
     
     func fullDescription() -> String {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.locale = NSLocale(localeIdentifier: "uk_UK")
-        
-        let calendar = dateFormatter.calendar
-        let thisWeek = calendar.components([NSCalendarUnit.WeekOfYear, NSCalendarUnit.Year], fromDate: NSDate())
-        let createdWeek = calendar.components([NSCalendarUnit.WeekOfYear, NSCalendarUnit.Year], fromDate: createdDate)
-        
         var description = [String]()
-        if calendar.isDateInToday(createdDate) {
-            dateFormatter.dateFormat = "HH:mm"
-            description.append(dateFormatter.stringFromDate(createdDate))
-        } else if calendar.isDateInYesterday(createdDate) {
-            description.append("Вчора")
-        } else if createdWeek == thisWeek {
-            dateFormatter.dateFormat = "EEEE"
-            description.append(dateFormatter.stringFromDate(createdDate).capitalizedString)
-        } else {
-            dateFormatter.dateFormat = "dd MMMM YYYY"
-            description.append(dateFormatter.stringFromDate(createdDate))
-        }
+        description.append(date)
         
         if let name = self.name {
             description.append(name)
@@ -62,11 +68,11 @@ struct DatePeriods {
     private static let calendar = NSCalendar.currentCalendar()
     
     static let now          = NSDate()
-    static let oneHourAgo   = calendar.dateByAddingUnit(NSCalendarUnit.Hour, value: -1, toDate: now, options: NSCalendarOptions.MatchFirst)
-    static let yesterday    = calendar.dateByAddingUnit(NSCalendarUnit.Day, value: -1, toDate: now, options: NSCalendarOptions.MatchFirst)
-    static let twoDaysAgo   = calendar.dateByAddingUnit(NSCalendarUnit.Day, value: -2, toDate: now, options: NSCalendarOptions.MatchFirst)
-    static let oneWeekAgo   = calendar.dateByAddingUnit(NSCalendarUnit.WeekOfYear, value: -1, toDate: now, options: NSCalendarOptions.MatchFirst)
-    static let oneYearAgo   = calendar.dateByAddingUnit(NSCalendarUnit.Year, value: -1, toDate: now, options: NSCalendarOptions.MatchFirst)
+    static let oneHourAgo   = calendar.dateByAddingUnit(.Hour, value: -1, toDate: now, options: .MatchFirst)
+    static let yesterday    = calendar.dateByAddingUnit(.Day, value: -1, toDate: now, options: .MatchFirst)
+    static let twoDaysAgo   = calendar.dateByAddingUnit(.Day, value: -2, toDate: now, options: .MatchFirst)
+    static let oneWeekAgo   = calendar.dateByAddingUnit(.WeekOfYear, value: -1, toDate: now, options: .MatchFirst)
+    static let oneYearAgo   = calendar.dateByAddingUnit(.Year, value: -1, toDate: now, options: .MatchFirst)
 }
 
 let emptyWeekRecord = DiaryRecord(createdDate: DatePeriods.twoDaysAgo)
@@ -80,7 +86,7 @@ let yearAgoRecord   = DiaryRecord(createdDate: DatePeriods.oneYearAgo, name: "Р
 let records = [yearAgoRecord, weekAgoRecord, nowRecord, emptyWeekRecord, yesterdayRecord]
 
 for record in records.sort({ (firstRecord: DiaryRecord, secondRecord: DiaryRecord) -> Bool in
-    return firstRecord.createdDate.compare(secondRecord.createdDate) == NSComparisonResult.OrderedAscending
+    return firstRecord.createdDate.compare(secondRecord.createdDate) == .OrderedAscending
 }) {
     print(record)
 }
