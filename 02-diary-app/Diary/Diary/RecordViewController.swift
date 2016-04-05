@@ -24,14 +24,7 @@ class RecordViewController: UIViewController {
             titleTextField?.text = record.name
             entryTextField?.text = record.text
             navigationItem.title = record.dateString
-            switch record.wheather {
-            case .Sunny:
-                weatherSegmentedControl?.selectedSegmentIndex = 0
-            case .Rainy:
-                weatherSegmentedControl?.selectedSegmentIndex = 1
-            case .Cloudy:
-                weatherSegmentedControl?.selectedSegmentIndex = 2
-            }
+            weatherSegmentedControl?.selectedSegmentIndex = record.wheather.rawValue
         } else {
             record = DiaryRecord()
             navigationItem.title = record?.dateStringFull
@@ -43,23 +36,30 @@ class RecordViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if navigationItem.backBarButtonItem === sender {
-            record?.name = titleTextField?.text
-            record?.text = entryTextField?.text
-            
-            let index = weatherSegmentedControl?.selectedSegmentIndex
-            if index == 0 {
-                record?.wheather = Weather.Sunny
-            } else if index == 1 {
-                record?.wheather = Weather.Rainy
-            } else if index == 2 {
-                record?.wheather = Weather.Cloudy
-            }
+    override func viewWillDisappear(animated: Bool) {
+        record?.name = titleTextField?.text
+        record?.text = entryTextField?.text
+        
+        let index = weatherSegmentedControl?.selectedSegmentIndex
+        if index == 0 {
+            record?.wheather = Weather.Sunny
+        } else if index == 1 {
+            record?.wheather = Weather.Rainy
+        } else if index == 2 {
+            record?.wheather = Weather.Cloudy
+        }
+        
+        let recordsController = navigationController?.topViewController as? RecordsTableViewController
+        if let record = record {
+            recordsController?.updateActiveRecord(record)
         }
     }
+
+    // MARK: - Navigation
+    /*
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+
+    }
+    */
 }

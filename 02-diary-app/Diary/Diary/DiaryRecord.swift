@@ -19,10 +19,8 @@ struct DatePeriods {
     static let oneYearAgo   = calendar.dateByAddingUnit(NSCalendarUnit.Year, value: -1, toDate: now, options: NSCalendarOptions.MatchFirst)
 }
 
-enum Weather: String {
-    case Sunny  = "sunny_sm"
-    case Cloudy = "cloudy_sm"
-    case Rainy  = "rain_sm"
+enum Weather: Int {
+    case Sunny, Rainy, Cloudy
 }
 
 class DiaryRecord: CustomStringConvertible {
@@ -37,27 +35,30 @@ class DiaryRecord: CustomStringConvertible {
     
     var description: String { return fullDescription() }
     var dateString: String {
-//        let calendar = DiaryRecord.dateFormatter.calendar
-//        let thisWeek = calendar.components([NSCalendarUnit.WeekOfYear, NSCalendarUnit.Year], fromDate: NSDate())
-//        let createdWeek = calendar.components([NSCalendarUnit.WeekOfYear, NSCalendarUnit.Year], fromDate: createdDate)
-//        
-//        if calendar.isDateInToday(createdDate) {
-//            DiaryRecord.dateFormatter.dateFormat = "HH:mm"
-//        } else if calendar.isDateInYesterday(createdDate) {
-//            return "Yesterday"
-//        } else if createdWeek == thisWeek {
-//            DiaryRecord.dateFormatter.dateFormat = "EEEE"
-//        } else {
-//            DiaryRecord.dateFormatter.dateFormat = "dd MMMM YYYY"
-//        }
+        let calendar = DiaryRecord.dateFormatter.calendar
+        let thisWeek = calendar.components([NSCalendarUnit.WeekOfYear, NSCalendarUnit.Year], fromDate: NSDate())
+        let createdWeek = calendar.components([NSCalendarUnit.WeekOfYear, NSCalendarUnit.Year], fromDate: createdDate)
+        
+        if calendar.isDateInToday(createdDate) {
+            DiaryRecord.dateFormatter.dateStyle = .NoStyle
+            DiaryRecord.dateFormatter.timeStyle = .ShortStyle
+        } else if calendar.isDateInYesterday(createdDate) {
+            DiaryRecord.dateFormatter.dateStyle = .LongStyle
+            DiaryRecord.dateFormatter.timeStyle = .NoStyle
+        } else if createdWeek == thisWeek {
+            DiaryRecord.dateFormatter.dateFormat = "EEEE"
+        } else {
+            DiaryRecord.dateFormatter.dateStyle = .LongStyle
+            DiaryRecord.dateFormatter.timeStyle = .NoStyle
+        }
         
         return DiaryRecord.dateFormatter.stringFromDate(createdDate)
     }
     var dateStringFull: String {
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
-        dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
-        return DiaryRecord.dateFormatter.stringFromDate(createdDate)
+        dateFormatter.dateStyle = .LongStyle
+        dateFormatter.timeStyle = .ShortStyle
+        return dateFormatter.stringFromDate(createdDate)
     }
     
     // MARK: Initialization
@@ -79,8 +80,8 @@ class DiaryRecord: CustomStringConvertible {
         
         // set up dateFormatter for test
         DiaryRecord.dateFormatter.doesRelativeDateFormatting = true
-        DiaryRecord.dateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
-        DiaryRecord.dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
+        DiaryRecord.dateFormatter.dateStyle = .LongStyle
+        DiaryRecord.dateFormatter.timeStyle = .ShortStyle
     }
     
     func fullDescription() -> String {

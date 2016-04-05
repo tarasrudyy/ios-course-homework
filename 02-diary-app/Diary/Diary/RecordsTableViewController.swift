@@ -57,30 +57,28 @@ class RecordsTableViewController: UITableViewController {
         let record = records[indexPath.row]
         cell.dateLabel?.text = record.dateString
         cell.nameLabel?.text = record.name
-        cell.weatherImageView?.image = UIImage(named: record.wheather.rawValue)
+        let images = ["sunny_sm", "rain_sm", "cloudy_sm"]
+        cell.weatherImageView?.image = UIImage(named: images[record.wheather.rawValue])
 
         return cell
     }
 
-    /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
 
-    /*
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
+            records.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
     }
-    */
 
     /*
     // Override to support rearranging the table view.
@@ -113,11 +111,14 @@ class RecordsTableViewController: UITableViewController {
         }
     }
     
-    @IBAction func unwindToRecordsList(sender: UIStoryboardSegue) {
-        if let sourceViewController = sender.sourceViewController as? RecordViewController, record = sourceViewController.record {
-            let newIndexPath = NSIndexPath(forRow: records.count, inSection: 0)
-            records.append(record)
-            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
+    func updateActiveRecord(record: DiaryRecord) {
+        if let selectedIndexPath = tableView.indexPathForSelectedRow {
+            records[selectedIndexPath.row] = record
+            tableView.reloadRowsAtIndexPaths([selectedIndexPath], withRowAnimation: .None)
+        } else {
+            let newIndexPath = NSIndexPath(forRow: 0, inSection: 0)
+            records.insert(record, atIndex: 0)
+            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Top)
         }
     }
 }
