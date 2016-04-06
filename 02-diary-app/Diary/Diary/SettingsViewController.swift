@@ -36,8 +36,17 @@ class SettingsViewController: UITableViewController {
     
     @IBAction func onDoneAction(sender: AnyObject) {
         let settings = NSUserDefaults.standardUserDefaults()
-        settings.setBool(naturalLanguageSupportSwitch?.on ?? false, forKey: "naturalLanguageSupport")
-        settings.setBool(dateAndTimeCell?.accessoryType == UITableViewCellAccessoryType.Checkmark, forKey: "dateAndTime")
+        
+        let oldValue1 = settings.boolForKey("dateAndTime")
+        let newValue1 = dateAndTimeCell?.accessoryType == UITableViewCellAccessoryType.Checkmark
+        settings.setBool(newValue1, forKey: "dateAndTime")
+        let oldValue2 = settings.boolForKey("naturalLanguageSupport")
+        let newValue2 = naturalLanguageSupportSwitch?.on ?? false
+        settings.setBool(newValue2, forKey: "naturalLanguageSupport")
+        
+        if oldValue1 != newValue1 || oldValue2 != newValue2 {
+            NSNotificationCenter.defaultCenter().postNotificationName("SettingDidChange", object: nil)
+        }
         
         self.dismissViewControllerAnimated(true, completion: nil)
     }

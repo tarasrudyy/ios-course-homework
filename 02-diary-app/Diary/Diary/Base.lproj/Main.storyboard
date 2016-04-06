@@ -219,6 +219,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Diary" id="QPg-ZX-ucB">
+                        <barButtonItem key="backBarButtonItem" enabled="NO" title=" " id="aAp-Km-wHR"/>
                         <barButtonItem key="leftBarButtonItem" image="settings" style="done" id="UAQ-SQ-XMa" userLabel="Settings">
                             <inset key="imageInsets" minX="8" minY="8" maxX="8" maxY="8"/>
                             <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>

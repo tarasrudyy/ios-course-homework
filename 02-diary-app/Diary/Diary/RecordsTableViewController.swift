@@ -14,24 +14,6 @@ class RecordsTableViewController: UITableViewController {
     
     var records = [DiaryRecord]()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Load the sample data.
-        loadSampleRecords()
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        title = "Diary"
-        tableView.reloadData()
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        super.viewWillDisappear(animated)
-        title = ""
-    }
-    
     func loadSampleRecords() {
         let emptyWeekRecord = DiaryRecord(createdDate: DatePeriods.twoDaysAgo, weather: Weather.Cloudy)
         let yesterdayRecord = DiaryRecord(createdDate: DatePeriods.yesterday, text: "Вчив Swift.", weather: Weather.Rainy)
@@ -44,6 +26,23 @@ class RecordsTableViewController: UITableViewController {
         records = records.sort({ (firstRecord: DiaryRecord, secondRecord: DiaryRecord) -> Bool in
             return firstRecord.createdDate.compare(secondRecord.createdDate) == NSComparisonResult.OrderedDescending
         })
+    }
+    
+    func settingsDidChange(notification: NSNotification) {
+        tableView.reloadData()
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Load the sample data.
+        loadSampleRecords()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.settingsDidChange(_:)), name: "SettingDidChange", object: nil)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "SettingDidChange", object: nil)
     }
     
     override func didReceiveMemoryWarning() {
