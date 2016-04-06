@@ -18,6 +18,7 @@
 		9B75D6131CB07355008C0457 /* DiaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B75D6121CB07355008C0457 /* DiaryTests.swift */; };
 		9B75D61E1CB07355008C0457 /* DiaryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B75D61D1CB07355008C0457 /* DiaryUITests.swift */; };
 		9B9F72001CB40E420069C203 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9F71FF1CB40E420069C203 /* SettingsViewController.swift */; };
+		9BAB36BC1CB546150046BC43 /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAB36BB1CB546150046BC43 /* Diary.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		9B75D61D1CB07355008C0457 /* DiaryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryUITests.swift; sourceTree = "<group>"; };
 		9B75D61F1CB07355008C0457 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B9F71FF1CB40E420069C203 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		9BAB36BB1CB546150046BC43 /* Diary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				9B0BDF421CB283690004B248 /* DiaryRecord.swift */,
+				9BAB36BB1CB546150046BC43 /* Diary.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BAB36BC1CB546150046BC43 /* Diary.swift in Sources */,
 				9B0BDF431CB283690004B248 /* DiaryRecord.swift in Sources */,
 				9B0BDF411CB27F430004B248 /* RecordsTableViewController.swift in Sources */,
 				9B0BDF451CB2A4750004B248 /* RecordViewController.swift in Sources */,

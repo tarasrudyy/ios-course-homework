@@ -12,21 +12,7 @@ class RecordsTableViewController: UITableViewController {
 
     // MARK: Properties
     
-    var records = [DiaryRecord]()
-    
-    func loadSampleRecords() {
-        let emptyWeekRecord = DiaryRecord(createdDate: DatePeriods.twoDaysAgo, weather: Weather.Cloudy)
-        let yesterdayRecord = DiaryRecord(createdDate: DatePeriods.yesterday, text: "Вчив Swift.", weather: Weather.Rainy)
-        let nowRecord       = DiaryRecord(name: "Зараз", text: "П’ю каву, пташки співають, бо вже весна!", tags: ["весна", "сонечко", "кава"])
-        let weekAgoRecord   = DiaryRecord(createdDate: DatePeriods.oneWeekAgo, name: "Вечеря", weather: Weather.Rainy)
-        let yearAgoRecord   = DiaryRecord(createdDate: DatePeriods.oneYearAgo, name: "Рік тому", text: "Вже весна!", tags: ["весна", "сонечко", "пташки"])
-        
-        records += [yearAgoRecord, weekAgoRecord, nowRecord, emptyWeekRecord, yesterdayRecord]
-        
-        records = records.sort({ (firstRecord: DiaryRecord, secondRecord: DiaryRecord) -> Bool in
-            return firstRecord.createdDate.compare(secondRecord.createdDate) == NSComparisonResult.OrderedDescending
-        })
-    }
+    let diary = Diary()
     
     func settingsDidChange(notification: NSNotification) {
         tableView.reloadData()
@@ -34,14 +20,15 @@ class RecordsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Load the sample data.
-        loadSampleRecords()
+        
+        diary.loadSampleRecords()
+        diary.persist()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.settingsDidChange(_:)), name: "SettingDidChange", object: nil)
     }
     
     deinit {
+        diary.persist()
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "SettingDidChange", object: nil)
     }
     
@@ -57,14 +44,14 @@ class RecordsTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return records.count
+        return diary.records.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier = "RecordTableViewCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! RecordTableViewCell
         
-        let record = records[indexPath.row]
+        let record = diary.records[indexPath.row]
         cell.dateLabel?.text = record.date
         cell.nameLabel?.text = record.name
         let images = ["sunny_sm", "rain_sm", "cloudy_sm"]
@@ -83,7 +70,7 @@ class RecordsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            records.removeAtIndex(indexPath.row)
+            diary.records.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -113,7 +100,7 @@ class RecordsTableViewController: UITableViewController {
             let recordViewController = segue.destinationViewController as? RecordViewController
             if let selectedRecordCell = sender as? RecordTableViewCell {
                 let indexPath = tableView.indexPathForCell(selectedRecordCell)!
-                let selectedRecord = records[indexPath.row]
+                let selectedRecord = diary.records[indexPath.row]
                 recordViewController?.record = selectedRecord
             }
         } else if segue.identifier == "AddRecord" {
@@ -123,11 +110,11 @@ class RecordsTableViewController: UITableViewController {
     
     func updateActiveRecord(record: DiaryRecord) {
         if let selectedIndexPath = tableView.indexPathForSelectedRow {
-            records[selectedIndexPath.row] = record
+            diary.records[selectedIndexPath.row] = record
             tableView.reloadRowsAtIndexPaths([selectedIndexPath], withRowAnimation: .None)
         } else {
             let newIndexPath = NSIndexPath(forRow: 0, inSection: 0)
-            records.insert(record, atIndex: 0)
+            diary.records.insert(record, atIndex: 0)
             tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Top)
         }
     }
