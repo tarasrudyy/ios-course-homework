@@ -62,7 +62,7 @@ class RecordsTableViewController: UITableViewController {
         cell.dateLabel?.text = record.date
         cell.nameLabel?.text = record.name
         let images = ["sunny_sm", "rain_sm", "cloudy_sm"]
-        cell.weatherImageView?.image = UIImage(named: images[record.wheather.rawValue])
+        cell.weatherImageView?.image = UIImage(named: images[record.weather.rawValue])
 
         return cell
     }

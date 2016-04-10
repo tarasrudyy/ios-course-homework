@@ -8,7 +8,18 @@
 
 import Foundation
 
-class Diary {
+struct DatePeriods {
+    private static let calendar = NSCalendar.currentCalendar()
+    
+    static let now          = NSDate()
+    static let oneHourAgo   = calendar.dateByAddingUnit(.Hour, value: -1, toDate: now, options: .MatchFirst)
+    static let yesterday    = calendar.dateByAddingUnit(.Day, value: -1, toDate: now, options: .MatchFirst)
+    static let twoDaysAgo   = calendar.dateByAddingUnit(.Day, value: -2, toDate: now, options: .MatchFirst)
+    static let oneWeekAgo   = calendar.dateByAddingUnit(.WeekOfYear, value: -1, toDate: now, options: .MatchFirst)
+    static let oneYearAgo   = calendar.dateByAddingUnit(.Year, value: -1, toDate: now, options: .MatchFirst)
+}
+
+@objc class Diary: NSObject, NSCoding {
     
     private lazy var localDataDirectoryURL: NSURL? = {
         var error : NSError? = nil
@@ -40,10 +51,28 @@ class Diary {
         return nil
     }()
     
+    private var dateFormatter:NSDateFormatter {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        return dateFormatter
+    }
+    
     var records:[DiaryRecord]
     
-    init() {
-        records = [DiaryRecord]()
+    override init() {
+        records = []
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        if let array = aDecoder.decodeObjectForKey("records") as? [DiaryRecord] {
+            records = array
+        } else {
+            records = []
+        }
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(records, forKey: "records")
     }
     
     func loadSampleRecords() {
@@ -59,12 +88,6 @@ class Diary {
             return firstRecord.createdDate.compare(secondRecord.createdDate) == NSComparisonResult.OrderedDescending
         })
     }
-
-    private var dateFormatter:NSDateFormatter {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        return dateFormatter
-    }
     
     func persistToJSON() {
         var serializableRecords = [[:]]
@@ -73,7 +96,7 @@ class Diary {
             serializableRecords.append([
                 "name": record.name ?? "",
                 "text": record.text ?? "",
-                "weather": record.wheather.rawValue,
+                "weather": record.weather.rawValue,
                 "date": dateFormatter.stringFromDate(record.createdDate),
             ]);
         }
@@ -106,6 +129,25 @@ class Diary {
                     let record = DiaryRecord(createdDate: createdDate, name: name, text: text, weather: Weather(rawValue: weather))
                     
                     self.records.append(record)
+                }
+            }
+        }
+    }
+    
+    func persist() {
+        if let url = dataURL {
+            let serializedData = NSKeyedArchiver.archivedDataWithRootObject(self)
+            if serializedData.length > 0 {
+                serializedData.writeToURL(url, atomically: true)
+            }
+        }
+    }
+    
+    func load() {
+        if let url = dataURL {
+            if let data = NSData(contentsOfURL: url) {
+                if let deserializedData = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? Diary {
+                    records = deserializedData.records
                 }
             }
         }

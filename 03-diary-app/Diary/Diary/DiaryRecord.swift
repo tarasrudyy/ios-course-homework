@@ -8,28 +8,17 @@
 
 import Foundation
 
-struct DatePeriods {
-    private static let calendar = NSCalendar.currentCalendar()
-    
-    static let now          = NSDate()
-    static let oneHourAgo   = calendar.dateByAddingUnit(.Hour, value: -1, toDate: now, options: .MatchFirst)
-    static let yesterday    = calendar.dateByAddingUnit(.Day, value: -1, toDate: now, options: .MatchFirst)
-    static let twoDaysAgo   = calendar.dateByAddingUnit(.Day, value: -2, toDate: now, options: .MatchFirst)
-    static let oneWeekAgo   = calendar.dateByAddingUnit(.WeekOfYear, value: -1, toDate: now, options: .MatchFirst)
-    static let oneYearAgo   = calendar.dateByAddingUnit(.Year, value: -1, toDate: now, options: .MatchFirst)
-}
-
 enum Weather: Int {
     case Sunny, Rainy, Cloudy
 }
 
-class DiaryRecord: CustomStringConvertible {
+@objc class DiaryRecord: NSObject, NSCoding {
     
     let createdDate: NSDate
     var name: String?
     var text: String?
     var tags: [String]
-    var wheather: Weather
+    var weather: Weather
     
     var date: String {
         let dateFormatter = NSDateFormatter()
@@ -52,7 +41,7 @@ class DiaryRecord: CustomStringConvertible {
         return dateFormatter.stringFromDate(createdDate)
     }
         
-    var description: String {
+    override var description: String {
         var description = [String]()
         description.append(self.date)
         
@@ -64,6 +53,14 @@ class DiaryRecord: CustomStringConvertible {
         }
         if tags.count > 0 {
             description.append("[\(tags.joinWithSeparator("] ["))]")
+        }
+        switch weather {
+        case .Sunny:
+            description.append("Sunny")
+        case .Rainy:
+            description.append("Rainy")
+        case .Cloudy:
+            description.append("Cloudy")
         }
         description.append("")
         
@@ -82,9 +79,29 @@ class DiaryRecord: CustomStringConvertible {
         self.text = text
         self.tags = tags
         if let weatherUnwrapped = weather {
-            self.wheather = weatherUnwrapped
+            self.weather = weatherUnwrapped
         } else {
-            self.wheather = Weather.Sunny
+            self.weather = Weather.Sunny
         }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        createdDate = (aDecoder.decodeObjectForKey("createdDate") as? NSDate) ?? NSDate()
+        name = (aDecoder.decodeObjectForKey("name") as? String) ?? ""
+        text = (aDecoder.decodeObjectForKey("text") as? String) ?? ""
+        tags = (aDecoder.decodeObjectForKey("tags") as? [String]) ?? [String]()
+        if let weatherRawValue = aDecoder.decodeObjectForKey("weather") as? Int {
+            weather = Weather(rawValue: weatherRawValue) ?? Weather.Sunny
+        } else {
+            weather = Weather.Sunny
+        }
+    }
+    
+    func encodeWithCoder(aCoder: NSCoder) {
+        aCoder.encodeObject(createdDate, forKey: "createdDate")
+        aCoder.encodeObject(name, forKey: "name")
+        aCoder.encodeObject(text, forKey: "text")
+        aCoder.encodeObject(tags, forKey: "tags")
+        aCoder.encodeObject(weather.rawValue, forKey: "weather")
     }
 }

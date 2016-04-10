@@ -24,7 +24,7 @@ class RecordViewController: UIViewController {
             titleTextField?.text = record.name
             entryTextField?.text = record.text
             navigationItem.title = record.date
-            weatherSegmentedControl?.selectedSegmentIndex = record.wheather.rawValue
+            weatherSegmentedControl?.selectedSegmentIndex = record.weather.rawValue
         } else {
             record = DiaryRecord()
             title = record?.fullDate
@@ -44,11 +44,11 @@ class RecordViewController: UIViewController {
         
         let index = weatherSegmentedControl?.selectedSegmentIndex
         if index == 0 {
-            record?.wheather = Weather.Sunny
+            record?.weather = Weather.Sunny
         } else if index == 1 {
-            record?.wheather = Weather.Rainy
+            record?.weather = Weather.Rainy
         } else if index == 2 {
-            record?.wheather = Weather.Cloudy
+            record?.weather = Weather.Cloudy
         }
         
         let recordsController = navigationController?.topViewController as? RecordsTableViewController
