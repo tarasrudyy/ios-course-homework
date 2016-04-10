@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         diary.load()
+        diary.loadSampleRecords()
         
         if let rootNavController = window?.rootViewController as? UINavigationController {
             if let masterController = rootNavController.topViewController as? RecordsTableViewController {

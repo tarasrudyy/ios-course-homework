@@ -94,7 +94,7 @@ struct DatePeriods {
                 "text": record.text ?? "",
                 "weather": record.weather.rawValue,
                 "date": dateFormatter.stringFromDate(record.createdDate),
-            ]);
+                ]);
         }
         
         if let jsonData = try? NSJSONSerialization.dataWithJSONObject(serializableRecords, options: NSJSONWritingOptions.PrettyPrinted) {

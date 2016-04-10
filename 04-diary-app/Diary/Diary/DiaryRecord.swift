@@ -47,7 +47,7 @@ enum Weather: Int {
         dateFormatter.timeStyle = .ShortStyle
         return dateFormatter.stringFromDate(createdDate)
     }
-        
+    
     override var description: String {
         var description = [String]()
         description.append(self.fullDate)
@@ -110,5 +110,23 @@ enum Weather: Int {
         aCoder.encodeObject(text, forKey: "text")
         aCoder.encodeObject(tags, forKey: "tags")
         aCoder.encodeObject(weather.rawValue, forKey: "weather")
+    }
+    
+    func isDateInToday() -> Bool {
+        return NSDateFormatter().calendar.isDateInToday(createdDate)
+    }
+    
+    func isDateInThisWeek() -> Bool {
+        let calendar = NSDateFormatter().calendar
+        let thisWeek = calendar.components([.WeekOfYear, .Year], fromDate: NSDate())
+        let createdWeek = calendar.components([.WeekOfYear, .Year], fromDate: createdDate)
+        return createdWeek == thisWeek
+    }
+    
+    func isDateInThisMonth() -> Bool {
+        let calendar = NSDateFormatter().calendar
+        let thisMonth = calendar.components([.Month, .Year], fromDate: NSDate())
+        let createdMonth = calendar.components([.Month, .Year], fromDate: createdDate)
+        return createdMonth == thisMonth
     }
 }

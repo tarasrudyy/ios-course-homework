@@ -17,19 +17,33 @@ class RecordsTableViewController: UITableViewController {
         }
     }
     
-    private var displayedRecords: [DiaryRecord] {
+    let sectionTitles = ["Today", "This Week", "This Month", "Earlier"]
+    
+    private var displayedRecords: [[DiaryRecord]] {
         if let diary = diary {
-            let records = diary.records.sort({ (firstRecord: DiaryRecord, secondRecord: DiaryRecord) -> Bool in
+            let sortedRecords = diary.records.sort({ (firstRecord: DiaryRecord, secondRecord: DiaryRecord) -> Bool in
                 return firstRecord.createdDate.compare(secondRecord.createdDate) == NSComparisonResult.OrderedDescending
             })
+            
+            var records = [[DiaryRecord](), [DiaryRecord](), [DiaryRecord](), [DiaryRecord]()]
+            for record in sortedRecords {
+                if record.isDateInToday() {
+                    records[0].append(record)
+                } else if record.isDateInThisWeek() {
+                    records[1].append(record)
+                } else if record.isDateInThisMonth() {
+                    records[2].append(record)
+                } else {
+                    records[3].append(record)
+                }
+            }
             return records
         }
         return []
     }
-
     
     func settingsDidChange(notification: NSNotification) {
-        tableView.reloadData()
+        tableView?.reloadData()
     }
     
     override func viewDidLoad() {
@@ -50,18 +64,44 @@ class RecordsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return displayedRecords.count
     }
 
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return displayedRecords[section].count
+    }
+    
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if displayedRecords[section].count > 0 {
+            return 25
+        }
+        return 0
+    }
+    
+    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0
+    }
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if displayedRecords[section].count > 0 {
+            return sectionTitles[section]
+        }
+        return nil
+    }
+    
+    override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if let header: UITableViewHeaderFooterView = view as? UITableViewHeaderFooterView {
+            header.textLabel?.textColor = UIColor.whiteColor()
+            header.textLabel?.font = UIFont.boldSystemFontOfSize(13)
+            header.contentView.backgroundColor = UIColor.lightGrayColor()
+        }
+    }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier = "RecordTableViewCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! RecordTableViewCell
         
-        let record = displayedRecords[indexPath.row]
+        let record = displayedRecords[indexPath.section][indexPath.row]
         cell.dateLabel?.text = record.date
         cell.nameLabel?.text = record.name
         let images = ["sunny_sm", "rain_sm", "cloudy_sm"]
@@ -80,8 +120,14 @@ class RecordsTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             // Delete the row from the data source
-            diary?.records.removeAtIndex(indexPath.row)
+            let record = displayedRecords[indexPath.section][indexPath.row]
+            if let removeIndex = diary?.records.indexOf(record) {
+                diary?.records.removeAtIndex(removeIndex)
+            }
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            if (displayedRecords[indexPath.section].count == 0) {
+                tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .None)
+            }
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }    
@@ -110,21 +156,19 @@ class RecordsTableViewController: UITableViewController {
             let recordViewController = segue.destinationViewController as? RecordViewController
             if let selectedRecordCell = sender as? RecordTableViewCell {
                 let indexPath = tableView.indexPathForCell(selectedRecordCell)!
-                let selectedRecord = displayedRecords[indexPath.row]
+                let selectedRecord = displayedRecords[indexPath.section][indexPath.row]
                 recordViewController?.record = selectedRecord
             }
-        } else if segue.identifier == "AddRecord" {
-            debugPrint("Adding new record.")
         }
     }
     
     func updateActiveRecord(record: DiaryRecord) {
-        if let selectedIndexPath = tableView.indexPathForSelectedRow {
-            diary?.records[selectedIndexPath.row] = record
-            tableView.reloadRowsAtIndexPaths([selectedIndexPath], withRowAnimation: .None)
+        if let updateIndex = diary?.records.indexOf(record) {
+            diary?.records[updateIndex] = record
+            tableView.reloadData()
         } else {
             let newIndexPath = NSIndexPath(forRow: 0, inSection: 0)
-            diary?.records.insert(record, atIndex: 0)
+            diary?.records.append(record)
             tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Top)
         }
     }

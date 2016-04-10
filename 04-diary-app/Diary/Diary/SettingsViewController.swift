@@ -67,6 +67,7 @@ class SettingsViewController: UITableViewController {
             default:
                 debugPrint("Setting didSelectRowAtIndexPath \(indexPath.row)")
             }
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
     }
     
