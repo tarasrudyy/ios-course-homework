@@ -35,7 +35,7 @@ class RecordsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.settingsDidChange(_:)), name: "SettingDidChange", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(self.settingsDidChange), name: "SettingDidChange", object: nil)
     }
     
     deinit {

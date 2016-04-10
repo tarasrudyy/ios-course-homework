@@ -8,21 +8,24 @@
 
 import UIKit
 
-class RecordViewController: UIViewController {
+class RecordViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
 
     // MARK: Properties
     @IBOutlet weak var weatherSegmentedControl: UISegmentedControl?
     @IBOutlet weak var titleTextField: UITextField?
-    @IBOutlet weak var entryTextField: UITextField?
+    @IBOutlet weak var entryTextView: UITextView?
     
     var record: DiaryRecord?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        titleTextField?.delegate = self
+        entryTextView?.delegate = self
+        
         if let record = record {
             titleTextField?.text = record.name
-            entryTextField?.text = record.text
+            entryTextView?.text = record.text
             navigationItem.title = record.date
             weatherSegmentedControl?.selectedSegmentIndex = record.weather.rawValue
         } else {
@@ -30,7 +33,7 @@ class RecordViewController: UIViewController {
             title = record?.fullDate
         }
     }
-        
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -40,7 +43,7 @@ class RecordViewController: UIViewController {
         super.viewWillDisappear(animated)
         
         record?.name = titleTextField?.text
-        record?.text = entryTextField?.text
+        record?.text = entryTextView?.text
         
         let index = weatherSegmentedControl?.selectedSegmentIndex
         if index == 0 {
@@ -56,7 +59,30 @@ class RecordViewController: UIViewController {
             recordsController?.updateActiveRecord(record)
         }
     }
-
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField == titleTextField {
+            titleTextField?.resignFirstResponder()
+            entryTextView?.becomeFirstResponder()
+            return false
+        }
+        return true
+    }
+    
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        if textView == entryTextView {
+            if (text.hasSuffix("\n")) {
+                textView.resignFirstResponder()
+                return false
+            }
+        }
+        return true
+    }
+    
+    @IBAction func showCalendarAction(sender: AnyObject) {
+    
+    }
+    
     /*
      // MARK: - Navigation
      

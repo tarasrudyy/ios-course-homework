@@ -258,30 +258,36 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Entry" textAlignment="natural" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="5e3-em-S3i">
-                                <rect key="frame" x="20" y="174" width="560" height="30"/>
-                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="med-rI-2LL">
+                                <rect key="frame" x="20" y="172" width="560" height="408"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" returnKeyType="done"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="PKn-LY-b8H" firstAttribute="width" secondItem="xn1-NP-B3M" secondAttribute="width" constant="-40" id="5cm-0a-9rH"/>
-                            <constraint firstItem="5e3-em-S3i" firstAttribute="width" secondItem="xn1-NP-B3M" secondAttribute="width" constant="-40" id="6bI-ps-KNo"/>
                             <constraint firstItem="PKn-LY-b8H" firstAttribute="top" secondItem="CXF-fv-0lV" secondAttribute="bottom" constant="17" id="S5R-qx-w9R"/>
                             <constraint firstItem="CXF-fv-0lV" firstAttribute="top" secondItem="FvA-Oy-zDN" secondAttribute="bottom" constant="19" id="SE6-le-FG6"/>
+                            <constraint firstItem="med-rI-2LL" firstAttribute="trailing" secondItem="PKn-LY-b8H" secondAttribute="trailing" id="XsJ-t5-KtI"/>
+                            <constraint firstItem="med-rI-2LL" firstAttribute="top" secondItem="PKn-LY-b8H" secondAttribute="bottom" constant="14" id="aVg-aM-jHe"/>
                             <constraint firstItem="CXF-fv-0lV" firstAttribute="centerX" secondItem="xn1-NP-B3M" secondAttribute="centerX" id="aZJ-BC-QYQ"/>
-                            <constraint firstItem="5e3-em-S3i" firstAttribute="centerX" secondItem="xn1-NP-B3M" secondAttribute="centerX" id="cX8-9c-EIg"/>
+                            <constraint firstItem="med-rI-2LL" firstAttribute="leading" secondItem="PKn-LY-b8H" secondAttribute="leading" id="eNC-GZ-48p"/>
+                            <constraint firstAttribute="bottom" secondItem="med-rI-2LL" secondAttribute="bottom" constant="20" symbolic="YES" id="pCC-BT-YKe"/>
                             <constraint firstItem="PKn-LY-b8H" firstAttribute="centerX" secondItem="xn1-NP-B3M" secondAttribute="centerX" id="sSr-23-txp"/>
-                            <constraint firstItem="5e3-em-S3i" firstAttribute="top" secondItem="PKn-LY-b8H" secondAttribute="bottom" constant="16" id="wtc-OW-cze"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="New Record" id="xov-HD-buE"/>
+                    <navigationItem key="navigationItem" title="New Record" id="xov-HD-buE">
+                        <barButtonItem key="rightBarButtonItem" image="calendar" id="xX6-Ah-LBp">
+                            <connections>
+                                <action selector="showCalendarAction:" destination="1iz-Hc-eKo" id="IJI-JB-gbb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="entryTextField" destination="5e3-em-S3i" id="DaK-wE-gpf"/>
+                        <outlet property="entryTextView" destination="med-rI-2LL" id="9bJ-Gi-PAB"/>
                         <outlet property="titleTextField" destination="PKn-LY-b8H" id="czy-Yh-VPt"/>
                         <outlet property="weatherSegmentedControl" destination="CXF-fv-0lV" id="OyD-Le-BYK"/>
                     </connections>
@@ -314,6 +320,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="calendar" width="24" height="25"/>
         <image name="cloudy_sm" width="25" height="25"/>
         <image name="rain_sm" width="25" height="25"/>
         <image name="settings" width="38" height="39"/>
