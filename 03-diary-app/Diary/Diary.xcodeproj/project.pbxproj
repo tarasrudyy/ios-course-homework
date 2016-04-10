@@ -108,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				9B9F72011CB40E670069C203 /* Model */,
+				9B9F72031CB40E970069C203 /* Controller */,
 				9B9F72021CB40E7C0069C203 /* UI */,
 				9B75D6091CB07355008C0457 /* Info.plist */,
 			);
@@ -137,7 +138,6 @@
 			children = (
 				9B0BDF421CB283690004B248 /* DiaryRecord.swift */,
 				9BAB36BB1CB546150046BC43 /* Diary.swift */,
-				9B9F72031CB40E970069C203 /* Controller */,
 			);
 			name = Model;
 			sourceTree = "<group>";
