@@ -24,9 +24,16 @@ enum Weather: Int {
         let dateFormatter = NSDateFormatter()
         let settings = NSUserDefaults.standardUserDefaults()
         dateFormatter.doesRelativeDateFormatting = settings.boolForKey("naturalLanguageSupport")
+        
         if settings.boolForKey("dateAndTime") {
-            dateFormatter.dateStyle = .LongStyle
-            dateFormatter.timeStyle = .ShortStyle
+            let calendar = dateFormatter.calendar
+            if calendar.isDateInToday(createdDate) && dateFormatter.doesRelativeDateFormatting {
+                dateFormatter.dateStyle = .NoStyle
+                dateFormatter.timeStyle = .ShortStyle
+            } else {
+                dateFormatter.dateStyle = .LongStyle
+                dateFormatter.timeStyle = .ShortStyle
+            }
         } else {
             dateFormatter.dateStyle = .LongStyle
             dateFormatter.timeStyle = .NoStyle
@@ -43,7 +50,7 @@ enum Weather: Int {
         
     override var description: String {
         var description = [String]()
-        description.append(self.date)
+        description.append(self.fullDate)
         
         if let name = self.name {
             description.append(name)
