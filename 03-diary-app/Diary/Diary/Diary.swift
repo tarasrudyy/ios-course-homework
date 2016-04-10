@@ -83,10 +83,6 @@ struct DatePeriods {
         let yearAgoRecord   = DiaryRecord(createdDate: DatePeriods.oneYearAgo, name: "Рік тому", text: "Вже весна!", tags: ["весна", "сонечко", "пташки"])
         
         records += [yearAgoRecord, weekAgoRecord, nowRecord, emptyWeekRecord, yesterdayRecord]
-        
-        records = records.sort({ (firstRecord: DiaryRecord, secondRecord: DiaryRecord) -> Bool in
-            return firstRecord.createdDate.compare(secondRecord.createdDate) == NSComparisonResult.OrderedDescending
-        })
     }
     
     func persistToJSON() {

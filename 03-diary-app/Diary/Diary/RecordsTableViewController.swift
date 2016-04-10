@@ -19,7 +19,10 @@ class RecordsTableViewController: UITableViewController {
     
     private var displayedRecords: [DiaryRecord] {
         if let diary = diary {
-            return diary.records
+            let records = diary.records.sort({ (firstRecord: DiaryRecord, secondRecord: DiaryRecord) -> Bool in
+                return firstRecord.createdDate.compare(secondRecord.createdDate) == NSComparisonResult.OrderedDescending
+            })
+            return records
         }
         return []
     }

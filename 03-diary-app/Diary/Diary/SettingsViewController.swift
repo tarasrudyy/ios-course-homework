@@ -51,19 +51,25 @@ class SettingsViewController: UITableViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    @IBAction func onDateAndTimeTap(sender: AnyObject) {
-        if dateAndTimeCell?.accessoryType == UITableViewCellAccessoryType.None {
-            dateAndTimeCell?.accessoryType = UITableViewCellAccessoryType.Checkmark
-            dateCell?.accessoryType = UITableViewCellAccessoryType.None
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 0 {
+            switch indexPath.row {
+            case 0:
+                if dateAndTimeCell?.accessoryType == UITableViewCellAccessoryType.None {
+                    dateAndTimeCell?.accessoryType = UITableViewCellAccessoryType.Checkmark
+                    dateCell?.accessoryType = UITableViewCellAccessoryType.None
+                }
+            case 1:
+                if dateCell?.accessoryType == UITableViewCellAccessoryType.None {
+                    dateCell?.accessoryType = UITableViewCellAccessoryType.Checkmark
+                    dateAndTimeCell?.accessoryType = UITableViewCellAccessoryType.None
+                }
+            default:
+                debugPrint("Setting didSelectRowAtIndexPath \(indexPath.row)")
+            }
         }
     }
     
-    @IBAction func onDateTap(sender: AnyObject) {
-        if dateCell?.accessoryType == UITableViewCellAccessoryType.None {
-            dateCell?.accessoryType = UITableViewCellAccessoryType.Checkmark
-            dateAndTimeCell?.accessoryType = UITableViewCellAccessoryType.None
-        }
-    }
     /*
     // MARK: - Navigation
 

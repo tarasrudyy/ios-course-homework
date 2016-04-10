@@ -26,7 +26,7 @@
         <scene sceneID="QVT-DS-Kuo">
             <objects>
                 <tableViewController id="Mzf-Za-7VI" userLabel="Settings" customClass="SettingsViewController" customModule="Diary" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="rta-oO-eGC">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="rta-oO-eGC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -57,9 +57,6 @@
                                         </tableViewCellContentView>
                                         <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <gestureRecognizers/>
-                                        <connections>
-                                            <outletCollection property="gestureRecognizers" destination="W6k-ZY-bNr" appends="YES" id="qal-Rc-eH7"/>
-                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="a8I-uC-mri">
                                         <rect key="frame" x="0.0" y="158" width="600" height="44"/>
@@ -86,9 +83,6 @@
                                         </tableViewCellContentView>
                                         <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <gestureRecognizers/>
-                                        <connections>
-                                            <outletCollection property="gestureRecognizers" destination="jfP-Oc-NLB" appends="YES" id="aa9-hq-79t"/>
-                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -150,16 +144,6 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8xe-YJ-xpR" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="W6k-ZY-bNr">
-                    <connections>
-                        <action selector="onDateAndTimeTap:" destination="Mzf-Za-7VI" id="ARq-IA-nfG"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <tapGestureRecognizer id="jfP-Oc-NLB">
-                    <connections>
-                        <action selector="onDateTap:" destination="Mzf-Za-7VI" id="pMI-cm-vM0"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2324" y="-28"/>
         </scene>
