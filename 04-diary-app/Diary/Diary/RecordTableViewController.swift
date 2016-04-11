@@ -25,8 +25,6 @@ class RecordTableViewController: UITableViewController, UITextFieldDelegate, UIT
         titleTextField?.delegate = self
         entryTextView?.delegate = self
         
-        self.tableView.contentInset = UIEdgeInsetsMake(-36, 0, 0, 0)
-        
         if let record = record {
             datePicker?.date = record.createdDate
             titleTextField?.text = record.name
