@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RecordViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
+class RecordTableViewController: UITableViewController, UITextFieldDelegate, UITextViewDelegate {
 
     // MARK: Properties
     @IBOutlet weak var weatherSegmentedControl: UISegmentedControl?
@@ -22,6 +22,8 @@ class RecordViewController: UIViewController, UITextFieldDelegate, UITextViewDel
         
         titleTextField?.delegate = self
         entryTextView?.delegate = self
+        
+        self.tableView.contentInset = UIEdgeInsetsMake(-36, 0, 0, 0);
         
         if let record = record {
             titleTextField?.text = record.name

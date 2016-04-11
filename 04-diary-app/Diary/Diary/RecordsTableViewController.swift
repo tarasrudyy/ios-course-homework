@@ -153,7 +153,7 @@ class RecordsTableViewController: UITableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ShowRecord" {
-            let recordViewController = segue.destinationViewController as? RecordViewController
+            let recordViewController = segue.destinationViewController as? RecordTableViewController
             if let selectedRecordCell = sender as? RecordTableViewCell {
                 let indexPath = tableView.indexPathForCell(selectedRecordCell)!
                 let selectedRecord = displayedRecords[indexPath.section][indexPath.row]
@@ -163,8 +163,8 @@ class RecordsTableViewController: UITableViewController {
     }
     
     func updateActiveRecord(record: DiaryRecord) {
-        if let updateIndex = diary?.records.indexOf(record) {
-            diary?.records[updateIndex] = record
+        if diary?.records.indexOf(record) != nil {
+            // not need to set diary?.records[updateIndex] = record, Swift pass objects by reference always
             tableView.reloadData()
         } else {
             let newIndexPath = NSIndexPath(forRow: 0, inSection: 0)
