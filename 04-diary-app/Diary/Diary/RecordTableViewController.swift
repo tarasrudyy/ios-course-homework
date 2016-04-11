@@ -14,8 +14,10 @@ class RecordTableViewController: UITableViewController, UITextFieldDelegate, UIT
     @IBOutlet weak var weatherSegmentedControl: UISegmentedControl?
     @IBOutlet weak var titleTextField: UITextField?
     @IBOutlet weak var entryTextView: UITextView?
+    @IBOutlet weak var datePicker: UIDatePicker?
     
     var record: DiaryRecord?
+    private var isDatePickerVisible:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,16 +25,20 @@ class RecordTableViewController: UITableViewController, UITextFieldDelegate, UIT
         titleTextField?.delegate = self
         entryTextView?.delegate = self
         
-        self.tableView.contentInset = UIEdgeInsetsMake(-36, 0, 0, 0);
+        self.tableView.contentInset = UIEdgeInsetsMake(-36, 0, 0, 0)
         
         if let record = record {
+            datePicker?.date = record.createdDate
             titleTextField?.text = record.name
             entryTextView?.text = record.text
             navigationItem.title = record.date
             weatherSegmentedControl?.selectedSegmentIndex = record.weather.rawValue
         } else {
             record = DiaryRecord()
-            title = record?.fullDate
+            if let record = record {
+                datePicker?.date = record.createdDate
+                title = record.fullDate
+            }
         }
     }
     
@@ -44,6 +50,9 @@ class RecordTableViewController: UITableViewController, UITextFieldDelegate, UIT
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         
+        if let date = datePicker?.date {
+            record?.createdDate = date
+        }
         record?.name = titleTextField?.text
         record?.text = entryTextView?.text
         
@@ -60,6 +69,13 @@ class RecordTableViewController: UITableViewController, UITextFieldDelegate, UIT
         if let record = record {
             recordsController?.updateActiveRecord(record)
         }
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.row == 0 && !isDatePickerVisible {
+            return 0.0
+        }
+        return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -82,7 +98,8 @@ class RecordTableViewController: UITableViewController, UITextFieldDelegate, UIT
     }
     
     @IBAction func showCalendarAction(sender: AnyObject) {
-    
+        isDatePickerVisible = !isDatePickerVisible
+        tableView.reloadData()
     }
     
     /*

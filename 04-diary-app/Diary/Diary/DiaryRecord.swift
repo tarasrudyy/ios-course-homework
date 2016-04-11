@@ -14,7 +14,7 @@ enum Weather: Int {
 
 @objc class DiaryRecord: NSObject, NSCoding {
     
-    let createdDate: NSDate
+    var createdDate: NSDate
     var name: String?
     var text: String?
     var tags: [String]
