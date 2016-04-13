@@ -60,6 +60,10 @@ class RecordsTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        tableView?.reloadData()
+    }
 
     // MARK: - Table view data source
 
