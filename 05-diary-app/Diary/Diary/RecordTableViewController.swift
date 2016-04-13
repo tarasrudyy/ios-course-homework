@@ -17,6 +17,7 @@ class RecordTableViewController: UITableViewController, UITextFieldDelegate, UIT
     @IBOutlet weak var datePicker: UIDatePicker?
     
     var record: DiaryRecord?
+
     private var isDatePickerVisible:Bool = false
     
     override func viewDidLoad() {

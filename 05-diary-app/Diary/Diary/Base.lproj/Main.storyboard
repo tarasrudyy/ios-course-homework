@@ -338,6 +338,9 @@
                     </navigationItem>
                     <connections>
                         <outlet property="datePicker" destination="r61-DN-0Ln" id="s2K-DG-ZCr"/>
+                        <outlet property="entryTextView" destination="NRA-At-QlX" id="7eJ-yH-wVj"/>
+                        <outlet property="titleTextField" destination="SWF-nF-jwJ" id="JKf-h4-DfJ"/>
+                        <outlet property="weatherSegmentedControl" destination="fg5-d9-W1S" id="qSy-I3-Dps"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FNr-Ki-rhM" userLabel="First Responder" sceneMemberID="firstResponder"/>
