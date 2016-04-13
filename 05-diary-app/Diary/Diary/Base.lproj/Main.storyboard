@@ -354,7 +354,7 @@
         <scene sceneID="kcm-Vk-xQe">
             <objects>
                 <navigationController id="Yqa-6K-xqw" userLabel="Records Navigation" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Entries" image="calendar" id="Ob6-gp-VjO"/>
+                    <tabBarItem key="tabBarItem" title="Entries" image="home_sel" id="Ob6-gp-VjO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="RRu-w8-ada">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -512,6 +512,7 @@
     <resources>
         <image name="calendar" width="24" height="25"/>
         <image name="cloudy_sm" width="25" height="25"/>
+        <image name="home_sel" width="29" height="29"/>
         <image name="rain_sm" width="25" height="25"/>
         <image name="settings" width="38" height="39"/>
         <image name="sunny_sm" width="25" height="25"/>
