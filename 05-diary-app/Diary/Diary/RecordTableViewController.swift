@@ -64,7 +64,7 @@ class RecordTableViewController: UITableViewController, UITextFieldDelegate, UIT
             record?.weather = Weather.Cloudy
         }
         
-        let recordsController = navigationController?.topViewController as? RecordsTableViewController
+        let recordsController = navigationController?.topViewController as? BaseTableViewController
         if let record = record {
             recordsController?.updateActiveRecord(record)
         }

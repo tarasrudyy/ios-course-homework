@@ -18,6 +18,7 @@
 		9B75D6081CB07355008C0457 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B75D6061CB07355008C0457 /* LaunchScreen.storyboard */; };
 		9B75D6131CB07355008C0457 /* DiaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B75D6121CB07355008C0457 /* DiaryTests.swift */; };
 		9B75D61E1CB07355008C0457 /* DiaryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B75D61D1CB07355008C0457 /* DiaryUITests.swift */; };
+		9B7BB5261CBECCE500110878 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7BB5251CBECCE500110878 /* BaseTableViewController.swift */; };
 		9B9F72001CB40E420069C203 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9F71FF1CB40E420069C203 /* SettingsViewController.swift */; };
 		9BAB36BC1CB546150046BC43 /* Diary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAB36BB1CB546150046BC43 /* Diary.swift */; };
 /* End PBXBuildFile section */
@@ -57,6 +58,7 @@
 		9B75D6191CB07355008C0457 /* DiaryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DiaryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B75D61D1CB07355008C0457 /* DiaryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryUITests.swift; sourceTree = "<group>"; };
 		9B75D61F1CB07355008C0457 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9B7BB5251CBECCE500110878 /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTableViewController.swift; sourceTree = "<group>"; };
 		9B9F71FF1CB40E420069C203 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		9BAB36BB1CB546150046BC43 /* Diary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Diary.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -158,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				9B75D5FD1CB07355008C0457 /* AppDelegate.swift */,
+				9B7BB5251CBECCE500110878 /* BaseTableViewController.swift */,
 				9B0BDF401CB27F430004B248 /* RecordsTableViewController.swift */,
 				9B64F4831CBE7220004A7CB0 /* WeatherRecordsTableViewController.swift */,
 				9B0BDF3C1CB27EF60004B248 /* RecordTableViewCell.swift */,
@@ -298,6 +301,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B7BB5261CBECCE500110878 /* BaseTableViewController.swift in Sources */,
 				9BAB36BC1CB546150046BC43 /* Diary.swift in Sources */,
 				9B0BDF431CB283690004B248 /* DiaryRecord.swift in Sources */,
 				9B0BDF411CB27F430004B248 /* RecordsTableViewController.swift in Sources */,

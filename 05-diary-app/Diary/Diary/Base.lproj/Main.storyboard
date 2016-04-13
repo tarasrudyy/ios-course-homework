@@ -518,7 +518,7 @@
         <image name="cloudy_sm" width="25" height="25"/>
         <image name="home_sel" width="29" height="29"/>
         <image name="rain_sm" width="25" height="25"/>
-        <image name="settings" width="38" height="39"/>
+        <image name="settings" width="25" height="26"/>
         <image name="sunny_sm" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>

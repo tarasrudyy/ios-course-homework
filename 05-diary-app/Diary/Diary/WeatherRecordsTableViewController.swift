@@ -8,12 +8,12 @@
 
 import UIKit
 
-class WeatherRecordsTableViewController: RecordsTableViewController {
+class WeatherRecordsTableViewController: BaseTableViewController {
 
     // MARK: Properties
     @IBOutlet weak var weatherSegmentedControl: UISegmentedControl?
     
-    override internal var displayedRecords: [[DiaryRecord]] {
+    override var displayedRecords: [[DiaryRecord]] {
         if let diary = diary {
             let sortedRecords = diary.records.sort({ (firstRecord: DiaryRecord, secondRecord: DiaryRecord) -> Bool in
                 return firstRecord.createdDate.compare(secondRecord.createdDate) == NSComparisonResult.OrderedDescending
@@ -32,31 +32,7 @@ class WeatherRecordsTableViewController: RecordsTableViewController {
             }
             return records
         }
-        return []
-    }
-    
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let segmentIndex = weatherSegmentedControl?.selectedSegmentIndex {
-            if section == segmentIndex {
-                return displayedRecords[segmentIndex].count
-            }
-        }
-        return 0
-    }
-    
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0
-    }
-    
-    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0
-    }
-    
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return nil
-    }
-    
-    override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        return [[DiaryRecord]]()
     }
     
     override func viewDidLoad() {
@@ -68,6 +44,15 @@ class WeatherRecordsTableViewController: RecordsTableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+        
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let segmentIndex = weatherSegmentedControl?.selectedSegmentIndex {
+            if section == segmentIndex {
+                return displayedRecords[segmentIndex].count
+            }
+        }
+        return 0
     }
     
     @IBAction func onWeatherChangedAction(sender: AnyObject) {
