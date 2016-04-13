@@ -63,6 +63,11 @@ class RecordTableViewController: UITableViewController, UITextFieldDelegate, UIT
         } else if index == 2 {
             record?.weather = Weather.Cloudy
         }
+        
+        let recordsController = navigationController?.topViewController as? RecordsTableViewController
+        if let record = record {
+            recordsController?.updateActiveRecord(record)
+        }
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
