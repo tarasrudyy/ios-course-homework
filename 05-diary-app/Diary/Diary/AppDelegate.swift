@@ -19,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         diary.load()
 //        diary.loadSampleRecords()
         
+        window?.tintColor = UIColor.darkGrayColor()
+        
         if let tabController = window?.rootViewController as? UITabBarController,
             let viewControllers = tabController.viewControllers {
             for c in viewControllers {

@@ -10,12 +10,11 @@
         <scene sceneID="gqG-cN-yvC">
             <objects>
                 <navigationController id="YHg-10-GQB" userLabel="Settings Navigation" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" image="settings" id="mjn-U1-GUS">
-                        <inset key="imageInsets" minX="4" minY="4" maxX="4" maxY="4"/>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="Settings" image="settings" id="mjn-U1-GUS"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="UUl-1l-Lcl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -348,7 +347,7 @@
                     <cells/>
                 </tableViewSection>
             </objects>
-            <point key="canvasLocation" x="2414" y="394"/>
+            <point key="canvasLocation" x="2436" y="418"/>
         </scene>
         <!--Records Navigation-->
         <scene sceneID="kcm-Vk-xQe">
@@ -358,7 +357,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="RRu-w8-ada">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -493,6 +492,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4sZ-7r-kX4">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -500,6 +500,10 @@
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="exf-8x-toK">
+                        <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="bHe-jR-mvD" kind="relationship" relationship="rootViewController" id="8po-rO-eMa"/>
                     </connections>
