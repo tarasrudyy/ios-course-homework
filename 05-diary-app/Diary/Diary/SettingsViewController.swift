@@ -28,13 +28,8 @@ class SettingsViewController: UITableViewController {
             dateCell?.accessoryType = UITableViewCellAccessoryType.Checkmark
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
-    @IBAction func onDoneAction(sender: AnyObject) {
+    override func viewWillDisappear(animated: Bool) {
         let settings = NSUserDefaults.standardUserDefaults()
         
         let oldValue1 = settings.boolForKey("dateAndTime")
@@ -47,8 +42,12 @@ class SettingsViewController: UITableViewController {
         if oldValue1 != newValue1 || oldValue2 != newValue2 {
             NSNotificationCenter.defaultCenter().postNotificationName("SettingDidChange", object: nil)
         }
-        
-        self.dismissViewControllerAnimated(true, completion: nil)
+
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

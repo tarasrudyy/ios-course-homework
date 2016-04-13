@@ -19,7 +19,7 @@ class RecordsTableViewController: UITableViewController {
     
     let sectionTitles = ["Today", "This Week", "This Month", "Earlier"]
     
-    private var displayedRecords: [[DiaryRecord]] {
+    internal var displayedRecords: [[DiaryRecord]] {
         if let diary = diary {
             let sortedRecords = diary.records.sort({ (firstRecord: DiaryRecord, secondRecord: DiaryRecord) -> Bool in
                 return firstRecord.createdDate.compare(secondRecord.createdDate) == NSComparisonResult.OrderedDescending

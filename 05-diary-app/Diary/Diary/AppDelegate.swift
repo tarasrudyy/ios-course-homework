@@ -19,12 +19,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         diary.load()
 //        diary.loadSampleRecords()
         
-        if let rootNavController = window?.rootViewController as? UINavigationController {
-            if let masterController = rootNavController.topViewController as? RecordsTableViewController {
-                masterController.diary = diary
+        if let tabController = window?.rootViewController as? UITabBarController,
+            let viewControllers = tabController.viewControllers {
+            for c in viewControllers {
+                if let navController = c as? UINavigationController {
+                    switch navController.topViewController {
+                    case let recordsController as RecordsTableViewController:
+                        recordsController.diary = diary
+                    case let weatherRecordsController as WeatherRecordsTableViewController:
+                        weatherRecordsController.diary = diary
+                    default:
+                        break
+                    }
+                }
             }
-        } else {
-            debugPrint("Unexpected root view controller structure")
         }
         return true
     }
