@@ -11,6 +11,7 @@
 		9B0BDF411CB27F430004B248 /* RecordsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0BDF401CB27F430004B248 /* RecordsTableViewController.swift */; };
 		9B0BDF431CB283690004B248 /* DiaryRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0BDF421CB283690004B248 /* DiaryRecord.swift */; };
 		9B0BDF451CB2A4750004B248 /* RecordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0BDF441CB2A4750004B248 /* RecordTableViewController.swift */; };
+		9B5EE47D1CC2620700362DDA /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5EE47C1CC2620700362DDA /* EventView.swift */; };
 		9B64F4841CBE7220004A7CB0 /* WeatherRecordsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64F4831CBE7220004A7CB0 /* WeatherRecordsTableViewController.swift */; };
 		9B75D5FE1CB07355008C0457 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B75D5FD1CB07355008C0457 /* AppDelegate.swift */; };
 		9B75D6031CB07355008C0457 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B75D6011CB07355008C0457 /* Main.storyboard */; };
@@ -45,6 +46,7 @@
 		9B0BDF401CB27F430004B248 /* RecordsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordsTableViewController.swift; sourceTree = "<group>"; };
 		9B0BDF421CB283690004B248 /* DiaryRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryRecord.swift; sourceTree = "<group>"; };
 		9B0BDF441CB2A4750004B248 /* RecordTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordTableViewController.swift; sourceTree = "<group>"; };
+		9B5EE47C1CC2620700362DDA /* EventView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
 		9B64F4831CBE7220004A7CB0 /* WeatherRecordsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherRecordsTableViewController.swift; sourceTree = "<group>"; };
 		9B75D5FA1CB07355008C0457 /* Diary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Diary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B75D5FD1CB07355008C0457 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -88,6 +90,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9B5EE47B1CC261C200362DDA /* Tree */ = {
+			isa = PBXGroup;
+			children = (
+				9B5EE47C1CC2620700362DDA /* EventView.swift */,
+			);
+			name = Tree;
+			sourceTree = "<group>";
+		};
 		9B75D5F11CB07355008C0457 = {
 			isa = PBXGroup;
 			children = (
@@ -159,6 +169,7 @@
 		9B9F72031CB40E970069C203 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				9B5EE47B1CC261C200362DDA /* Tree */,
 				9B75D5FD1CB07355008C0457 /* AppDelegate.swift */,
 				9B7BB5251CBECCE500110878 /* BaseTableViewController.swift */,
 				9B0BDF401CB27F430004B248 /* RecordsTableViewController.swift */,
@@ -310,6 +321,7 @@
 				9B75D5FE1CB07355008C0457 /* AppDelegate.swift in Sources */,
 				9B0BDF3D1CB27EF60004B248 /* RecordTableViewCell.swift in Sources */,
 				9B9F72001CB40E420069C203 /* SettingsViewController.swift in Sources */,
+				9B5EE47D1CC2620700362DDA /* EventView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

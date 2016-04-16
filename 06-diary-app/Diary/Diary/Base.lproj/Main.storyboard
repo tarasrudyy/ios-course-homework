@@ -385,6 +385,7 @@
                     <connections>
                         <segue destination="Yqa-6K-xqw" kind="relationship" relationship="viewControllers" id="8eV-ZV-Nwv"/>
                         <segue destination="UmU-x8-YUG" kind="relationship" relationship="viewControllers" id="i3l-No-N8Y"/>
+                        <segue destination="yEZ-RW-PJ5" kind="relationship" relationship="viewControllers" id="X0T-Yi-wb7"/>
                         <segue destination="YHg-10-GQB" kind="relationship" relationship="viewControllers" id="kDF-me-rgA"/>
                     </connections>
                 </tabBarController>
@@ -483,6 +484,45 @@
             </objects>
             <point key="canvasLocation" x="1610" y="1183"/>
         </scene>
+        <!--Event Tree-->
+        <scene sceneID="fWl-LI-Pmj">
+            <objects>
+                <viewController id="QGd-8v-UhM" userLabel="Event Tree" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IVO-0B-Jm0"/>
+                        <viewControllerLayoutGuide type="bottom" id="TDZ-yk-gES"/>
+                    </layoutGuides>
+                    <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" id="i7G-7B-mP2">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </scrollView>
+                    <navigationItem key="navigationItem" id="Hki-RP-led">
+                        <nil key="title"/>
+                        <view key="titleView" contentMode="scaleToFill" id="czQ-UQ-mQ0">
+                            <rect key="frame" x="218" y="6" width="164" height="33"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="uav-mq-n7x">
+                                    <rect key="frame" x="5" y="2" width="155" height="29"/>
+                                    <segments>
+                                        <segment title="Events"/>
+                                        <segment title="Timeline"/>
+                                    </segments>
+                                </segmentedControl>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="uav-mq-n7x" firstAttribute="leading" secondItem="czQ-UQ-mQ0" secondAttribute="leading" constant="5" id="Aji-Hf-0Bk"/>
+                                <constraint firstItem="uav-mq-n7x" firstAttribute="centerY" secondItem="czQ-UQ-mQ0" secondAttribute="centerY" id="CAW-kg-D9b"/>
+                                <constraint firstItem="uav-mq-n7x" firstAttribute="centerX" secondItem="czQ-UQ-mQ0" secondAttribute="centerX" id="zhP-QF-cb4"/>
+                            </constraints>
+                        </view>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GUM-ep-cm8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1610" y="1939"/>
+        </scene>
         <!--Weather Navigation-->
         <scene sceneID="M2K-ez-eOV">
             <objects>
@@ -511,6 +551,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ven-EO-B5l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="792" y="1183"/>
+        </scene>
+        <!--Event Tree Navigation-->
+        <scene sceneID="2UE-xg-ZIO">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yEZ-RW-PJ5" userLabel="Event Tree Navigation" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Events" image="calendar" id="NFf-nb-U7p"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="O4x-PC-ksq">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="QGd-8v-UhM" kind="relationship" relationship="rootViewController" id="2V7-kW-4Ny"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bft-SS-Zr1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="798" y="1939"/>
         </scene>
     </scenes>
     <resources>
