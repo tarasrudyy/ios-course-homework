@@ -111,7 +111,7 @@ class EventView: UIView {
         }
         
         // name view
-        if record?.name != nil {
+        if !(record?.name ?? "").isEmpty {
             let nameLabel = UILabel()
             nameLabel.textColor = color
             nameLabel.font = UIFont.systemFontOfSize(11)

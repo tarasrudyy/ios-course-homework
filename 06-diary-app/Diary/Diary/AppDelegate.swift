@@ -16,8 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-//        diary.load()
-        diary.loadSampleRecords()
+        diary.load()
+//        diary.loadSampleRecords()
         
         window?.tintColor = UIColor.darkGrayColor()
         

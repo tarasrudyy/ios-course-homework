@@ -128,6 +128,7 @@ class BaseTableViewController: UITableViewController {
             // not need to set diary?.records[updateIndex] = record, Swift pass objects by reference always
             tableView.reloadData()
         } else {
+            //FIX ME: here is an error when setting date in past
             let newIndexPath = NSIndexPath(forRow: 0, inSection: 0)
             diary?.records.append(record)
             tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Top)

@@ -16,7 +16,7 @@ class WeatherRecordsTableViewController: BaseTableViewController {
     override var displayedRecords: [[DiaryRecord]] {
         if let diary = diary {
             let sortedRecords = diary.records.sort({ (firstRecord: DiaryRecord, secondRecord: DiaryRecord) -> Bool in
-                return firstRecord.createdDate.compare(secondRecord.createdDate) == NSComparisonResult.OrderedDescending
+                return firstRecord.createdDate.compare(secondRecord.createdDate) == .OrderedDescending
             })
             
             var records = [[DiaryRecord](), [DiaryRecord](), [DiaryRecord]()]
