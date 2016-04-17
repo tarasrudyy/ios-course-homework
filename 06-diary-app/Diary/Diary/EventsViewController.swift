@@ -62,6 +62,25 @@ class EventsViewController: UIViewController {
         var nextY:CGFloat = 0
         for record in displayedRecords {
             let eventView = EventView()
+            
+            if isTimelineMode && record.weather != .None {
+                if record == displayedRecords.first {
+                    eventView.isFirst = true
+                } else {
+                    if record == displayedRecords.last {
+                        eventView.isLast = true
+                    }
+                    if let index = displayedRecords.indexOf(record) {
+                        let prevRecord = displayedRecords[index - 1]
+                        let calendar = NSCalendar.currentCalendar()
+                        let difference = calendar.components(.Day, fromDate: record.createdDate, toDate: prevRecord.createdDate, options: [])
+                        if abs(difference.day) < 1 {
+                            eventView.hasDate = false
+                        }
+                    }
+                }
+            }
+            
             eventView.record = record
             eventView.frame.origin = CGPointMake(30, nextY)
             nextY += eventView.frame.height

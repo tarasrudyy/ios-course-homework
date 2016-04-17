@@ -11,6 +11,9 @@ import UIKit
 class EventView: UIView {
 
     var color = UIColor.redColor()
+    var isFirst = false
+    var isLast  = false
+    var hasDate = true
     
     var record: DiaryRecord? {
         didSet {
@@ -35,32 +38,42 @@ class EventView: UIView {
         let gap:CGFloat               =  10
         let dateWidth:CGFloat         =  40
         let dateHeight:CGFloat        =  18
-        let dateLineHeight:CGFloat    =  30
+        var dateLineHeight:CGFloat    =  30
         let nameLabelMaxWidth:CGFloat = 145
         
         var boundsSize = CGSizeZero
         
-        // date view
-        let dateLabel = UILabel()
-        dateLabel.textColor = color
-        dateLabel.font = UIFont.systemFontOfSize(8)
-        dateLabel.text = record?.shortDate
-        dateLabel.textAlignment = .Center
-        
-        dateLabel.frame.size.width  = dateWidth
-        dateLabel.frame.size.height = dateHeight
-        
         var rect = CGRectZero
         rect.origin.y = dateLineHeight
         rect.size = CGSizeMake(dateWidth, dateHeight)
-        
-        let dateView = getRoundedViewWithFrame(rect)
-        dateView.addSubview(dateLabel)
-        self.addSubview(dateView)
+
+        // date view
+        if hasDate {
+            let dateLabel = UILabel()
+            dateLabel.textColor = color
+            dateLabel.font = UIFont.systemFontOfSize(8)
+            dateLabel.text = record?.shortDate
+            dateLabel.textAlignment = .Center
+            
+            dateLabel.frame.size.width  = dateWidth
+            dateLabel.frame.size.height = dateHeight
+            
+            rect.size = CGSizeMake(dateWidth, dateHeight)
+            
+            let dateView = getRoundedViewWithFrame(rect)
+            dateView.addSubview(dateLabel)
+            self.addSubview(dateView)
+            
+            // calulate new bounds
+            boundsSize.height += rect.size.height
+        } else if isLast {
+            dateLineHeight += 0.5 * dateHeight
+        } else {
+            dateLineHeight += dateHeight
+        }
         
         // calulate new bounds
-        boundsSize.width  += rect.size.width
-        boundsSize.height += rect.size.height
+        boundsSize.width += rect.size.width
         
         // draw vertical line
         var lineImageFrame = CGRectZero
@@ -89,8 +102,8 @@ class EventView: UIView {
                 let images = ["sunny_sm", "rain_sm", "cloudy_sm"]
                 weatherImageView.image = UIImage(named: images[weather.rawValue])?.imageWithRenderingMode(.AlwaysTemplate)
                 
-                rect.origin.x = dateView.frame.maxX + gap
-                rect.origin.y = dateView.frame.midY - 0.5 * weatherSize.height
+                rect.origin.x = rect.maxX + gap
+                rect.origin.y = rect.midY - 0.5 * weatherSize.height
                 rect.size = weatherSize
                 
                 let weatherView = getRoundedViewWithFrame(rect)
@@ -102,9 +115,17 @@ class EventView: UIView {
                 
                 // draw horizontal line
                 lineImageFrame = CGRectZero
-                lineImageFrame.origin.x = rect.origin.x - gap
+                if hasDate {
+                    lineImageFrame.origin.x = rect.origin.x - gap
+                } else {
+                    lineImageFrame.origin.x = rect.origin.x - gap - 0.5 * dateWidth
+                }
                 lineImageFrame.origin.y = rect.origin.y
-                lineImageFrame.size = CGSize(width: gap, height: weatherSize.height)
+                if hasDate {
+                    lineImageFrame.size = CGSize(width: gap, height: weatherSize.height)
+                } else {
+                    lineImageFrame.size = CGSize(width: gap + 0.5 * dateWidth, height: weatherSize.height)
+                }
                 lineImageView = UIImageView(frame: lineImageFrame)
                 lineImageView.image = drawLineInRect(ofSize: lineImageFrame.size, horizontally: true)
                 self.addSubview(lineImageView)
