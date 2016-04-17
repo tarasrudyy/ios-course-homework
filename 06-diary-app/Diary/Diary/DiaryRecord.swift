@@ -9,7 +9,7 @@
 import Foundation
 
 enum Weather: Int {
-    case Sunny, Rainy, Cloudy
+    case Sunny, Rainy, Cloudy, None
 }
 
 @objc class DiaryRecord: NSObject, NSCoding {
@@ -74,6 +74,8 @@ enum Weather: Int {
             description.append("Rainy")
         case .Cloudy:
             description.append("Cloudy")
+        default:
+            description.append("None")
         }
         description.append("")
         

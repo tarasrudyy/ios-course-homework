@@ -22,6 +22,8 @@ class EventView: UIView {
                     color = UIColor.blueColor()
                 case .Rainy:
                     color = UIColor.darkGrayColor()
+                default:
+                    color = UIColor.lightGrayColor()
                 }
             }
         
@@ -30,20 +32,26 @@ class EventView: UIView {
     }
     
     private func initSubviews() {
-        let gap:CGFloat = 10.0
+        let gap:CGFloat            = 10
+        let dateWidth:CGFloat      = 40
+        let dateHeight:CGFloat     = 18
+        let dateLineHeight:CGFloat = 30
         
         var boundsSize = CGSizeZero
         
         // date view
-        let dateSize = CGSizeMake(40, 18)
-        var rect = CGRectZero
-        rect.size = dateSize
-        
-        let dateLabel = UILabel(frame: rect)
+        let dateLabel = UILabel()
         dateLabel.textColor = color
         dateLabel.font = UIFont.systemFontOfSize(8)
         dateLabel.text = record?.shortDate
         dateLabel.textAlignment = .Center
+        
+        dateLabel.frame.size.width  = dateWidth
+        dateLabel.frame.size.height = dateHeight
+        
+        var rect = CGRectZero
+        rect.origin.y = dateLineHeight
+        rect.size = CGSizeMake(dateWidth, dateHeight)
         
         let dateView = getRoundedViewWithFrame(rect)
         dateView.addSubview(dateLabel)
@@ -56,8 +64,8 @@ class EventView: UIView {
         // draw vertical line
         var lineImageFrame = CGRectZero
         lineImageFrame.origin.x = rect.origin.x
-        lineImageFrame.origin.y = rect.origin.y - 30
-        lineImageFrame.size = CGSize(width: rect.size.width, height: 30)
+        lineImageFrame.origin.y = 0
+        lineImageFrame.size = CGSize(width: rect.size.width, height: dateLineHeight)
         var lineImageView = UIImageView(frame: lineImageFrame)
         lineImageView.image = drawLineInRect(ofSize: lineImageFrame.size, horizontally: false)
         self.addSubview(lineImageView)
@@ -66,42 +74,44 @@ class EventView: UIView {
         boundsSize.height += lineImageFrame.size.height
         
         // weather view
-        let weatherSize = CGSizeMake(  2 * dateSize.height,     2 * dateSize.height)
-        let imageSize   = CGSizeMake(0.7 * weatherSize.width, 0.7 * weatherSize.height)
-        var imageFrame = CGRectZero
-        imageFrame.origin.x = 0.5 * (weatherSize.width  - imageSize.width)
-        imageFrame.origin.y = 0.5 * (weatherSize.height - imageSize.height)
-        imageFrame.size = imageSize
-        
-        let weatherImageView = UIImageView(frame: imageFrame)
-        weatherImageView.tintColor = color
-        if let weatherIndex = record?.weather.rawValue {
-            let images = ["sunny_sm", "rain_sm", "cloudy_sm"]
-            weatherImageView.image = UIImage(named: images[weatherIndex])?.imageWithRenderingMode(.AlwaysTemplate)
+        if let weather = record?.weather {
+            if weather != .None {
+                let weatherSize = CGSizeMake(  2 * dateHeight,     2 * dateHeight)
+                let imageSize   = CGSizeMake(0.7 * weatherSize.width, 0.7 * weatherSize.height)
+                var imageFrame = CGRectZero
+                imageFrame.origin.x = 0.5 * (weatherSize.width  - imageSize.width)
+                imageFrame.origin.y = 0.5 * (weatherSize.height - imageSize.height)
+                imageFrame.size = imageSize
+                
+                let weatherImageView = UIImageView(frame: imageFrame)
+                weatherImageView.tintColor = color
+                let images = ["sunny_sm", "rain_sm", "cloudy_sm"]
+                weatherImageView.image = UIImage(named: images[weather.rawValue])?.imageWithRenderingMode(.AlwaysTemplate)
+                
+                rect.origin.x = dateView.frame.maxX + gap
+                rect.origin.y = dateView.frame.midY - 0.5 * weatherSize.height
+                rect.size = weatherSize
+                
+                let weatherView = getRoundedViewWithFrame(rect)
+                weatherView.addSubview(weatherImageView)
+                self.addSubview(weatherView)
+                
+                // calulate new bounds
+                boundsSize.width += rect.size.width
+                
+                // draw horizontal line
+                lineImageFrame = CGRectZero
+                lineImageFrame.origin.x = rect.origin.x - gap
+                lineImageFrame.origin.y = rect.origin.y
+                lineImageFrame.size = CGSize(width: gap, height: weatherSize.height)
+                lineImageView = UIImageView(frame: lineImageFrame)
+                lineImageView.image = drawLineInRect(ofSize: lineImageFrame.size, horizontally: true)
+                self.addSubview(lineImageView)
+            }
         }
         
-        rect.origin.x = dateView.frame.maxX + gap
-        rect.origin.y = dateView.frame.midY - 0.5 * weatherSize.height
-        rect.size = weatherSize
-
-        let weatherView = getRoundedViewWithFrame(rect)
-        weatherView.addSubview(weatherImageView)
-        self.addSubview(weatherView)
-        
-        // calulate new bounds
-        boundsSize.width += rect.size.width
-        
-        // draw horizontal line
-        lineImageFrame = CGRectZero
-        lineImageFrame.origin.x = rect.origin.x - gap
-        lineImageFrame.origin.y = rect.origin.y
-        lineImageFrame.size = CGSize(width: gap, height: weatherSize.height)
-        lineImageView = UIImageView(frame: lineImageFrame)
-        lineImageView.image = drawLineInRect(ofSize: lineImageFrame.size, horizontally: true)
-        self.addSubview(lineImageView)
-        
+        // name view
         if record?.name != nil {
-            // name view
             let nameLabel = UILabel()
             nameLabel.textColor = color
             nameLabel.font = UIFont.systemFontOfSize(11)
@@ -109,12 +119,12 @@ class EventView: UIView {
             nameLabel.textAlignment = .Center
             
             var nameSize = nameLabel.intrinsicContentSize()
-            nameSize.height = weatherSize.height
+            nameSize.height = rect.height
             nameSize.width += 2 * gap
             nameLabel.frame.size = nameSize
             
-            rect.origin.x = weatherView.frame.maxX + gap
-            rect.origin.y = weatherView.frame.midY - 0.5 * nameSize.height
+            rect.origin.x = rect.maxX + gap
+            rect.origin.y = rect.midY - 0.5 * nameSize.height
             rect.size = nameSize
             
             let nameView = getRoundedViewWithFrame(rect)

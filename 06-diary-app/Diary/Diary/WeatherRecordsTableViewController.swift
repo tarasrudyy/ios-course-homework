@@ -28,6 +28,7 @@ class WeatherRecordsTableViewController: BaseTableViewController {
                     records[1].append(record)
                 case .Cloudy:
                     records[2].append(record)
+                default: break
                 }
             }
             return records

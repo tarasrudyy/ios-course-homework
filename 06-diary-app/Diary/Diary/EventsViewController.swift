@@ -31,14 +31,14 @@ class EventsViewController: UIViewController {
                 return firstRecord.createdDate.compare(secondRecord.createdDate) == .OrderedAscending
             })
             
-            var nextY:CGFloat = 30
+            var nextY:CGFloat = 0
             for record in sortedRecords {
                 let eventView = EventView()
                 eventView.record = record
                 eventView.frame.origin = CGPointMake(30, nextY)
-                self.view.addSubview(eventView)
-                
                 nextY += eventView.frame.height
+                
+                self.view.addSubview(eventView)
             }
         }
     }
