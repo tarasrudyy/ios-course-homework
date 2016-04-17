@@ -32,10 +32,11 @@ class EventView: UIView {
     }
     
     private func initSubviews() {
-        let gap:CGFloat            = 10
-        let dateWidth:CGFloat      = 40
-        let dateHeight:CGFloat     = 18
-        let dateLineHeight:CGFloat = 30
+        let gap:CGFloat               =  10
+        let dateWidth:CGFloat         =  40
+        let dateHeight:CGFloat        =  18
+        let dateLineHeight:CGFloat    =  30
+        let nameLabelMaxWidth:CGFloat = 145
         
         var boundsSize = CGSizeZero
         
@@ -115,17 +116,22 @@ class EventView: UIView {
             let nameLabel = UILabel()
             nameLabel.textColor = color
             nameLabel.font = UIFont.systemFontOfSize(11)
+            nameLabel.lineBreakMode = .ByTruncatingTail
             nameLabel.text = record?.name
             nameLabel.textAlignment = .Center
             
             var nameSize = nameLabel.intrinsicContentSize()
+            if nameSize.width > nameLabelMaxWidth {
+                nameSize.width = nameLabelMaxWidth
+            }
             nameSize.height = rect.height
-            nameSize.width += 2 * gap
+            nameLabel.frame.origin.x = gap
             nameLabel.frame.size = nameSize
             
             rect.origin.x = rect.maxX + gap
             rect.origin.y = rect.midY - 0.5 * nameSize.height
             rect.size = nameSize
+            rect.size.width += 2 * gap
             
             let nameView = getRoundedViewWithFrame(rect)
             nameView.addSubview(nameLabel)
