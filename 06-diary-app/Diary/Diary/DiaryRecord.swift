@@ -48,6 +48,12 @@ enum Weather: Int {
         return dateFormatter.stringFromDate(createdDate)
     }
     
+    var shortDate: String {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "MMM dd"
+        return dateFormatter.stringFromDate(createdDate).uppercaseString
+    }
+        
     override var description: String {
         var description = [String]()
         description.append(self.fullDate)

@@ -12,6 +12,7 @@
 		9B0BDF431CB283690004B248 /* DiaryRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0BDF421CB283690004B248 /* DiaryRecord.swift */; };
 		9B0BDF451CB2A4750004B248 /* RecordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B0BDF441CB2A4750004B248 /* RecordTableViewController.swift */; };
 		9B5EE47D1CC2620700362DDA /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5EE47C1CC2620700362DDA /* EventView.swift */; };
+		9B5EE47F1CC2693600362DDA /* EventsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5EE47E1CC2693600362DDA /* EventsViewController.swift */; };
 		9B64F4841CBE7220004A7CB0 /* WeatherRecordsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64F4831CBE7220004A7CB0 /* WeatherRecordsTableViewController.swift */; };
 		9B75D5FE1CB07355008C0457 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B75D5FD1CB07355008C0457 /* AppDelegate.swift */; };
 		9B75D6031CB07355008C0457 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B75D6011CB07355008C0457 /* Main.storyboard */; };
@@ -47,6 +48,7 @@
 		9B0BDF421CB283690004B248 /* DiaryRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryRecord.swift; sourceTree = "<group>"; };
 		9B0BDF441CB2A4750004B248 /* RecordTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordTableViewController.swift; sourceTree = "<group>"; };
 		9B5EE47C1CC2620700362DDA /* EventView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
+		9B5EE47E1CC2693600362DDA /* EventsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
 		9B64F4831CBE7220004A7CB0 /* WeatherRecordsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherRecordsTableViewController.swift; sourceTree = "<group>"; };
 		9B75D5FA1CB07355008C0457 /* Diary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Diary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B75D5FD1CB07355008C0457 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				9B64F4831CBE7220004A7CB0 /* WeatherRecordsTableViewController.swift */,
 				9B0BDF3C1CB27EF60004B248 /* RecordTableViewCell.swift */,
 				9B0BDF441CB2A4750004B248 /* RecordTableViewController.swift */,
+				9B5EE47E1CC2693600362DDA /* EventsViewController.swift */,
 				9B9F71FF1CB40E420069C203 /* SettingsViewController.swift */,
 			);
 			name = Controller;
@@ -312,6 +315,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B5EE47F1CC2693600362DDA /* EventsViewController.swift in Sources */,
 				9B7BB5261CBECCE500110878 /* BaseTableViewController.swift in Sources */,
 				9BAB36BC1CB546150046BC43 /* Diary.swift in Sources */,
 				9B0BDF431CB283690004B248 /* DiaryRecord.swift in Sources */,

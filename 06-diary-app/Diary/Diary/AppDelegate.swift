@@ -16,8 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        diary.load()
-//        diary.loadSampleRecords()
+//        diary.load()
+        diary.loadSampleRecords()
         
         window?.tintColor = UIColor.darkGrayColor()
         
@@ -30,6 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         recordsController.diary = diary
                     case let weatherRecordsController as WeatherRecordsTableViewController:
                         weatherRecordsController.diary = diary
+                    case let eventsController as EventsViewController:
+                        eventsController.diary = diary
                     default:
                         break
                     }
