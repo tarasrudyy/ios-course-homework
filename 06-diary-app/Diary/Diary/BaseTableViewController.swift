@@ -42,8 +42,7 @@ class BaseTableViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        tableView?.beginUpdates()
-        tableView?.endUpdates()
+        tableView?.reloadData()
     }
 
     // MARK: - Table view data source
@@ -125,12 +124,8 @@ class BaseTableViewController: UITableViewController {
     }
     
     func updateActiveRecord(record: DiaryRecord) {
-        if diary?.records.contains(record) == true {
-            // not need to set diary?.records[updateIndex] = record, Swift pass objects by reference always
-            tableView.reloadData()
-        } else {
+        if diary?.records.contains(record) == false {
             diary?.records.append(record)
-            tableView.insertRowsAtIndexPaths([getIndexPathForRecord(record)], withRowAnimation: .Right)
         }
     }
     

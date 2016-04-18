@@ -14,7 +14,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="UUl-1l-Lcl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -224,7 +223,7 @@
             <objects>
                 <tableViewController id="1iz-Hc-eKo" userLabel="Record" customClass="RecordTableViewController" customModule="Diary" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="static" style="plain" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="uRE-qZ-YrW">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -301,25 +300,25 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="200" id="jrW-2x-jHb" userLabel="Entry Text Cell">
-                                        <rect key="frame" x="0.0" y="372" width="600" height="200"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="158" id="jrW-2x-jHb" userLabel="Entry Text Cell">
+                                        <rect key="frame" x="0.0" y="372" width="600" height="158"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jrW-2x-jHb" id="nNO-j8-Cvi">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="199"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="157"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" text="Entry" translatesAutoresizingMaskIntoConstraints="NO" id="NRA-At-QlX">
-                                                    <rect key="frame" x="8" y="8" width="584" height="183"/>
+                                                    <rect key="frame" x="8" y="8" width="584" height="141"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" returnKeyType="done"/>
                                                 </textView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="NRA-At-QlX" firstAttribute="trailing" secondItem="nNO-j8-Cvi" secondAttribute="trailingMargin" id="4sH-w1-IvD"/>
-                                                <constraint firstItem="NRA-At-QlX" firstAttribute="bottom" secondItem="nNO-j8-Cvi" secondAttribute="bottomMargin" id="Mcs-sX-uGI"/>
-                                                <constraint firstItem="NRA-At-QlX" firstAttribute="leading" secondItem="nNO-j8-Cvi" secondAttribute="leadingMargin" id="fQ6-DF-c1d"/>
-                                                <constraint firstItem="NRA-At-QlX" firstAttribute="top" secondItem="nNO-j8-Cvi" secondAttribute="topMargin" id="ju4-5Y-05s"/>
+                                                <constraint firstItem="NRA-At-QlX" firstAttribute="leading" secondItem="nNO-j8-Cvi" secondAttribute="leadingMargin" id="5oP-gy-BTb"/>
+                                                <constraint firstItem="NRA-At-QlX" firstAttribute="top" secondItem="nNO-j8-Cvi" secondAttribute="topMargin" id="QGM-lD-IyO"/>
+                                                <constraint firstItem="NRA-At-QlX" firstAttribute="trailing" secondItem="nNO-j8-Cvi" secondAttribute="trailingMargin" id="WXd-NB-5zk"/>
+                                                <constraint firstItem="NRA-At-QlX" firstAttribute="bottom" secondItem="nNO-j8-Cvi" secondAttribute="bottomMargin" id="zRk-L9-Ieh"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -327,7 +326,6 @@
                             </tableViewSection>
                         </sections>
                     </tableView>
-                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" title="New Record" id="xov-HD-buE">
                         <barButtonItem key="rightBarButtonItem" image="calendar" id="xX6-Ah-LBp">
                             <connections>
@@ -449,6 +447,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="1sA-0q-njn">
                         <nil key="title"/>
+                        <barButtonItem key="backBarButtonItem" title=" " id="VN9-a2-dS1"/>
                         <view key="titleView" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" id="yWK-Q4-pSp">
                             <rect key="frame" x="218" y="6" width="164" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -534,7 +533,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="4sZ-7r-kX4">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -542,10 +540,6 @@
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="exf-8x-toK">
-                        <rect key="frame" x="0.0" y="556" width="600" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </toolbar>
                     <connections>
                         <segue destination="bHe-jR-mvD" kind="relationship" relationship="rootViewController" id="8po-rO-eMa"/>
                     </connections>
