@@ -20,22 +20,22 @@ class EventsViewController: UIViewController {
             })
             
             if isTimelineMode {
-                for var i in 0..<sortedRecords.count {
+                var i = 0
+                while i < sortedRecords.count - 1 {
                     let record = sortedRecords[i]
-                    if record != sortedRecords.last {
-                        let nextRecord = sortedRecords[i + 1]
-                        let calendar = NSCalendar.currentCalendar()
-                        let difference = calendar.components(.Day, fromDate: record.createdDate, toDate: nextRecord.createdDate, options: [])
-                        if 2...7 ~= abs(difference.day) {
-                            let emptyRecord = DiaryRecord()
-                            if let date = calendar.dateByAddingUnit(.Day, value: 1, toDate: record.createdDate, options: []) {
-                                emptyRecord.createdDate = date
-                            }
-                            emptyRecord.weather = Weather.None
-                            sortedRecords.insert(emptyRecord, atIndex: i + 1)
-                            i -= 1
+                    let nextRecord = sortedRecords[i + 1]
+                    let calendar = NSCalendar.currentCalendar()
+                    let difference = calendar.components(.Day, fromDate: record.createdDate, toDate: nextRecord.createdDate, options: [])
+                    
+                    if 2...7 ~= abs(difference.day) {
+                        let emptyRecord = DiaryRecord()
+                        if let date = calendar.dateByAddingUnit(.Day, value: 1, toDate: record.createdDate, options: []) {
+                            emptyRecord.createdDate = date
                         }
+                        emptyRecord.weather = Weather.None
+                        sortedRecords.insert(emptyRecord, atIndex: i + 1)
                     }
+                    i = i + 1
                 }
             }
             
@@ -61,18 +61,19 @@ class EventsViewController: UIViewController {
         
         let offsetX:CGFloat = 30
         var nextY:CGFloat = 0
-        for record in displayedRecords {
+        let records = displayedRecords
+        for record in records {
             let eventView = EventView()
             
-            if record == displayedRecords.first {
+            if record == records.first {
                 eventView.isFirst = true
-            } else if record == displayedRecords.last {
+            } else if record == records.last {
                 eventView.isLast = true
             }
             
-            if isTimelineMode && record.weather != .None && record != displayedRecords.first {
-                if let index = displayedRecords.indexOf(record) {
-                    let prevRecord = displayedRecords[index - 1]
+            if isTimelineMode && record.weather != .None && record != records.first {
+                if let index = records.indexOf(record) {
+                    let prevRecord = records[index - 1]
                     let calendar = NSCalendar.currentCalendar()
                     if calendar.isDate(record.createdDate, inSameDayAsDate: prevRecord.createdDate) {
                         eventView.hasDate = false
