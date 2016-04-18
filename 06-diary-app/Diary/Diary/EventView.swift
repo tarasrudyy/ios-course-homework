@@ -39,6 +39,7 @@ class EventView: UIView {
         let dateWidth:CGFloat            =  40
         let dateHeight:CGFloat           =  18
         var dateLineHeight:CGFloat       =  30
+        let lastViewOffsetY:CGFloat      =  30
         let nameLabelMaxWidth:CGFloat    = 145
         let dateLineHiddenHeight:CGFloat = 150
         
@@ -170,6 +171,10 @@ class EventView: UIView {
             
             // calulate new bounds
             boundsSize.width += rect.size.width
+        }
+        
+        if isLast {
+            boundsSize.height += lastViewOffsetY
         }
         
         self.bounds.size = boundsSize

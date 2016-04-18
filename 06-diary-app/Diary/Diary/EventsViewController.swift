@@ -59,6 +59,7 @@ class EventsViewController: UIViewController {
             subview.removeFromSuperview()
         }
         
+        let offsetX:CGFloat = 30
         var nextY:CGFloat = 0
         for record in displayedRecords {
             let eventView = EventView()
@@ -80,13 +81,13 @@ class EventsViewController: UIViewController {
             }
             
             eventView.record = record
-            eventView.frame.origin = CGPointMake(30, nextY)
+            eventView.frame.origin = CGPointMake(offsetX, nextY)
             nextY += eventView.frame.height
             self.view.addSubview(eventView)
         }
         
         if let scrollView = self.view as? UIScrollView {
-            scrollView.contentSize.height = nextY + 30
+            scrollView.contentSize.height = nextY
         }
     }
 
