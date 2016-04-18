@@ -20,15 +20,8 @@ class RecordsTableViewController: BaseTableViewController {
             
             var records = [[DiaryRecord](), [DiaryRecord](), [DiaryRecord](), [DiaryRecord]()]
             for record in sortedRecords {
-                if record.isDateInToday() {
-                    records[0].append(record)
-                } else if record.isDateInThisWeek() {
-                    records[1].append(record)
-                } else if record.isDateInThisMonth() {
-                    records[2].append(record)
-                } else {
-                    records[3].append(record)
-                }
+                let indexPath = getIndexPathForRecord(record)
+                records[indexPath.section].append(record)                
             }
             return records
         }
@@ -66,6 +59,20 @@ class RecordsTableViewController: BaseTableViewController {
             header.textLabel?.font = UIFont.boldSystemFontOfSize(13)
             header.contentView.backgroundColor = UIColor.lightGrayColor()
         }
+    }
+    
+    override func getIndexPathForRecord(record: DiaryRecord) -> NSIndexPath {
+        let newIndexPath:NSIndexPath
+        if record.isDateInToday() {
+            newIndexPath = NSIndexPath(forRow: 0, inSection: 0)
+        } else if record.isDateInThisWeek() {
+            newIndexPath = NSIndexPath(forRow: 0, inSection: 1)
+        } else if record.isDateInThisMonth() {
+            newIndexPath = NSIndexPath(forRow: 0, inSection: 2)
+        } else {
+            newIndexPath = NSIndexPath(forRow: 0, inSection: 3)
+        }
+        return newIndexPath
     }
     
     /*

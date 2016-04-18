@@ -21,14 +21,9 @@ class WeatherRecordsTableViewController: BaseTableViewController {
             
             var records = [[DiaryRecord](), [DiaryRecord](), [DiaryRecord]()]
             for record in sortedRecords {
-                switch record.weather {
-                case .Sunny:
-                    records[0].append(record)
-                case .Rainy:
-                    records[1].append(record)
-                case .Cloudy:
-                    records[2].append(record)
-                default: break
+                let indexPath = getIndexPathForRecord(record)
+                if indexPath.section < records.count {
+                    records[indexPath.section].append(record)
                 }
             }
             return records
@@ -55,6 +50,24 @@ class WeatherRecordsTableViewController: BaseTableViewController {
         }
         return 0
     }
+    
+    override func getIndexPathForRecord(record: DiaryRecord) -> NSIndexPath {
+        let newIndexPath:NSIndexPath
+        
+        switch record.weather {
+        case .Sunny:
+            newIndexPath = NSIndexPath(forRow: 0, inSection: 0)
+        case .Rainy:
+            newIndexPath = NSIndexPath(forRow: 0, inSection: 1)
+        case .Cloudy:
+            newIndexPath = NSIndexPath(forRow: 0, inSection: 2)
+        default:
+            newIndexPath = NSIndexPath(forRow: 0, inSection: 3)
+        }
+
+        return newIndexPath
+    }
+
     
     @IBAction func onWeatherChangedAction(sender: AnyObject) {
         tableView.reloadData()
