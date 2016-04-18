@@ -73,8 +73,7 @@ class EventsViewController: UIViewController {
                     if let index = displayedRecords.indexOf(record) {
                         let prevRecord = displayedRecords[index - 1]
                         let calendar = NSCalendar.currentCalendar()
-                        let difference = calendar.components(.Day, fromDate: record.createdDate, toDate: prevRecord.createdDate, options: [])
-                        if abs(difference.day) < 1 {
+                        if calendar.isDate(record.createdDate, inSameDayAsDate: prevRecord.createdDate) {
                             eventView.hasDate = false
                         }
                     }
