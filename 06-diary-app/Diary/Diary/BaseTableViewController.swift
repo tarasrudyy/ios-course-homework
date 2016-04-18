@@ -42,7 +42,8 @@ class BaseTableViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        tableView?.reloadData()
+        tableView?.beginUpdates()
+        tableView?.endUpdates()
     }
 
     // MARK: - Table view data source
@@ -85,7 +86,7 @@ class BaseTableViewController: UITableViewController {
             if let removeIndex = diary?.records.indexOf(record) {
                 diary?.records.removeAtIndex(removeIndex)
             }
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
             if (displayedRecords[indexPath.section].count == 0) {
                 tableView.reloadSections(NSIndexSet(index: indexPath.section), withRowAnimation: .None)
             }
@@ -124,12 +125,12 @@ class BaseTableViewController: UITableViewController {
     }
     
     func updateActiveRecord(record: DiaryRecord) {
-        if diary?.records.indexOf(record) != nil {
+        if diary?.records.contains(record) == true {
             // not need to set diary?.records[updateIndex] = record, Swift pass objects by reference always
             tableView.reloadData()
         } else {
             diary?.records.append(record)
-            tableView.insertRowsAtIndexPaths([getIndexPathForRecord(record)], withRowAnimation: .Top)
+            tableView.insertRowsAtIndexPaths([getIndexPathForRecord(record)], withRowAnimation: .Right)
         }
     }
     

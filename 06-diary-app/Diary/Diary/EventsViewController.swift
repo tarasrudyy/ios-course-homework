@@ -25,11 +25,12 @@ class EventsViewController: UIViewController {
                     let record = sortedRecords[i]
                     let nextRecord = sortedRecords[i + 1]
                     let calendar = NSCalendar.currentCalendar()
-                    let difference = calendar.components(.Day, fromDate: record.createdDate, toDate: nextRecord.createdDate, options: [])
+                    let dayNumber = calendar.ordinalityOfUnit(.Day, inUnit: .Era, forDate: record.createdDate)
+                    let nextDayNumber = calendar.ordinalityOfUnit(.Day, inUnit: .Era, forDate: nextRecord.createdDate)
                     
-                    if 2...7 ~= abs(difference.day) {
+                    if 2...7 ~= nextDayNumber - dayNumber {
                         let emptyRecord = DiaryRecord()
-                        if let date = calendar.dateByAddingUnit(.Day, value: 1, toDate: record.createdDate, options: []) {
+                        if let date = calendar.dateByAddingUnit(.Day, value: 1, toDate: record.createdDate, options: .MatchStrictly) {
                             emptyRecord.createdDate = date
                         }
                         emptyRecord.weather = Weather.None
