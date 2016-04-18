@@ -98,7 +98,8 @@ class RecordTableViewController: UITableViewController, UITextFieldDelegate, UIT
     
     @IBAction func showCalendarAction(sender: AnyObject) {
         isDatePickerVisible = !isDatePickerVisible
-        tableView.reloadData()
+        tableView.beginUpdates()
+        tableView.endUpdates()
     }
     
     /*
