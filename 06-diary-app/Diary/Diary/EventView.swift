@@ -40,6 +40,7 @@ class EventView: UIView {
         let dateHeight:CGFloat           =  18
         var dateLineHeight:CGFloat       =  30
         let lastViewOffsetY:CGFloat      =  30
+        let nameLabelMinWidth:CGFloat    =  dateHeight
         let nameLabelMaxWidth:CGFloat    = 145
         let dateLineHiddenHeight:CGFloat = 150
         
@@ -144,7 +145,9 @@ class EventView: UIView {
             nameLabel.textAlignment = .Center
             
             var nameSize = nameLabel.intrinsicContentSize()
-            if nameSize.width > nameLabelMaxWidth {
+            if nameSize.width < nameLabelMinWidth {
+                nameSize.width = nameLabelMinWidth
+            } else if nameSize.width > nameLabelMaxWidth {
                 nameSize.width = nameLabelMaxWidth
             }
             nameSize.height = rect.height
