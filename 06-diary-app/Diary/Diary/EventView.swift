@@ -35,11 +35,12 @@ class EventView: UIView {
     }
     
     private func initSubviews() {
-        let gap:CGFloat               =  10
-        let dateWidth:CGFloat         =  40
-        let dateHeight:CGFloat        =  18
-        var dateLineHeight:CGFloat    =  30
-        let nameLabelMaxWidth:CGFloat = 145
+        let gap:CGFloat                  =  10
+        let dateWidth:CGFloat            =  40
+        let dateHeight:CGFloat           =  18
+        var dateLineHeight:CGFloat       =  30
+        let nameLabelMaxWidth:CGFloat    = 145
+        let dateLineHiddenHeight:CGFloat = 150
         
         var boundsSize = CGSizeZero
         
@@ -78,14 +79,14 @@ class EventView: UIView {
         // draw vertical line
         var lineImageFrame = CGRectZero
         lineImageFrame.origin.x = rect.origin.x
-        lineImageFrame.origin.y = 0
-        lineImageFrame.size = CGSize(width: rect.size.width, height: dateLineHeight)
+        lineImageFrame.origin.y = isFirst ? -dateLineHiddenHeight : 0
+        lineImageFrame.size = CGSize(width: rect.size.width, height: isFirst ? dateLineHeight + dateLineHiddenHeight : dateLineHeight)
         var lineImageView = UIImageView(frame: lineImageFrame)
         lineImageView.image = drawLineInRect(ofSize: lineImageFrame.size, horizontally: false)
         self.addSubview(lineImageView)
         
         // calulate new bounds
-        boundsSize.height += lineImageFrame.size.height
+        boundsSize.height += dateLineHeight
         
         // weather view
         if let weather = record?.weather {

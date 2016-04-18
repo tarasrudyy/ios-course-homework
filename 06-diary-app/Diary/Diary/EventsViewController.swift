@@ -63,19 +63,18 @@ class EventsViewController: UIViewController {
         for record in displayedRecords {
             let eventView = EventView()
             
-            if isTimelineMode && record.weather != .None {
-                if record == displayedRecords.first {
-                    eventView.isFirst = true
-                } else {
-                    if record == displayedRecords.last {
-                        eventView.isLast = true
-                    }
-                    if let index = displayedRecords.indexOf(record) {
-                        let prevRecord = displayedRecords[index - 1]
-                        let calendar = NSCalendar.currentCalendar()
-                        if calendar.isDate(record.createdDate, inSameDayAsDate: prevRecord.createdDate) {
-                            eventView.hasDate = false
-                        }
+            if record == displayedRecords.first {
+                eventView.isFirst = true
+            } else if record == displayedRecords.last {
+                eventView.isLast = true
+            }
+            
+            if isTimelineMode && record.weather != .None && record != displayedRecords.first {
+                if let index = displayedRecords.indexOf(record) {
+                    let prevRecord = displayedRecords[index - 1]
+                    let calendar = NSCalendar.currentCalendar()
+                    if calendar.isDate(record.createdDate, inSameDayAsDate: prevRecord.createdDate) {
+                        eventView.hasDate = false
                     }
                 }
             }
