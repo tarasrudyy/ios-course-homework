@@ -47,11 +47,11 @@ class EventTreeView: UIScrollView {
     
     var isTimelineMode = false {
         didSet {
-            reloadView()
+            reloadView(true)
         }
     }
     
-    func reloadView() {
+    func reloadView(animated: Bool = false) {
         for subview in self.subviews {
             subview.removeFromSuperview()
         }
@@ -80,8 +80,9 @@ class EventTreeView: UIScrollView {
             
             eventView.record = record
             eventView.frame.origin = CGPointMake(offsetX, nextY)
-            nextY += eventView.frame.height
             self.addSubview(eventView)
+            
+            nextY += eventView.frame.height
         }
         
         self.contentSize.height = nextY

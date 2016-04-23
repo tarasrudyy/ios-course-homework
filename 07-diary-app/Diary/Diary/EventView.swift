@@ -49,7 +49,7 @@ class EventView: UIView {
         var rect = CGRectZero
         rect.origin.y = dateLineHeight
         rect.size = CGSizeMake(dateWidth, dateHeight)
-
+        
         // date view
         if hasDate {
             let dateLabel = UILabel()
@@ -132,6 +132,9 @@ class EventView: UIView {
                 lineImageView = UIImageView(frame: lineImageFrame)
                 lineImageView.image = drawLineInRect(ofSize: lineImageFrame.size, horizontally: true)
                 self.addSubview(lineImageView)
+                
+                // calulate new bounds
+                boundsSize.width += gap
             }
         }
         
@@ -174,6 +177,7 @@ class EventView: UIView {
             
             // calulate new bounds
             boundsSize.width += rect.size.width
+            boundsSize.width += gap
         }
         
         if isLast {
